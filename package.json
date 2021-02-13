@@ -1,0 +1,60 @@
+{
+  "name": "remote-server-manager",
+  "version": "1.0.0",
+  "private": "true",
+  "scripts": {
+    "lint": "eslint .",
+    "pretty": "prettier --write .",
+    "start": "node -r @babel/register ./scripts/checkPortInUse.js && npm run start:renderer",
+    "start:main": "cross-env NODE_ENV=development electron -r @babel/register ./src/main.dev.js",
+    "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./config/webpack.config.renderer.dev.babel.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrew-novak/remote-server-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrew-novak/remote-server-manager/issues"
+  },
+  "homepage": "https://github.com/andrew-novak/remote-server-manager#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/register": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "detect-port": "^1.3.0",
+    "electron": "^11.2.3",
+    "electron-devtools-installer": "^3.1.1",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.2.1",
+    "redux-devtools-extension": "^2.13.8",
+    "webpack": "^5.21.1",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-dropzone": "^11.3.1",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "^0.13.7",
+    "ssh2-sftp-client": "^6.0.1"
+  }
+}
