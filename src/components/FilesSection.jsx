@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -13,10 +14,13 @@ import {
 import IconAdd from "@material-ui/icons/Add";
 import IconSend from "@material-ui/icons/Send";
 import IconClose from "@material-ui/icons/Close";
+import IconEdit from "@material-ui/icons/Edit";
 import IconDelete from "@material-ui/icons/Delete";
 import { connect } from "react-redux";
 
 import Dropzone from "./Dropzone";
+import { colorError } from "../styles";
+import { openExisting as openCodeEditor } from "../actions/codeEditor";
 import {
   open as openDropzone,
   setFiles as setDropzoneFiles,
@@ -50,20 +54,19 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
-  buttonCancel: {
-    color: theme.palette.error.main,
-  },
 }));
 
 const FilesSection = ({
   sectionName,
   title,
+  textEdition,
   files,
   dropzones,
   openDropzone,
   setDropzoneFiles,
   closeDropzone,
   sendFiles,
+  openCodeEditor,
   openDeletionDialog,
 }) => {
   const { isOpen: isDropzoneOpen, files: dropzoneFiles } = dropzones[
@@ -73,14 +76,19 @@ const FilesSection = ({
 
   const classes = useStyles();
 
-  const content = filenames.map((filename) => (
-    <ListItem>
+  // noWrap
+  const content = filenames.map((filename, index) => (
+    <ListItem key={index}>
       <ListItemText
         primary={filename}
-        noWrap
         classes={{ primary: classes.itemText }}
       />
       <ListItemSecondaryAction>
+        {textEdition ? (
+          <IconButton onClick={() => openCodeEditor(sectionName, filename)}>
+            <IconEdit />
+          </IconButton>
+        ) : null}
         <IconButton onClick={() => openDeletionDialog(sectionName, filename)}>
           <IconDelete />
         </IconButton>
@@ -99,7 +107,7 @@ const FilesSection = ({
         {isDropzoneOpen ? (
           <>
             <Button
-              className={classes.buttonCancel}
+              style={colorError}
               startIcon={<IconClose />}
               onClick={() => closeDropzone(sectionName)}
             >
@@ -147,5 +155,6 @@ export default connect(mapState, {
   setDropzoneFiles,
   closeDropzone,
   sendFiles,
+  openCodeEditor,
   openDeletionDialog,
 })(FilesSection);

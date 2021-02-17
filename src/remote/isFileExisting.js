@@ -2,18 +2,24 @@ import Client from "ssh2-sftp-client";
 
 import options from "./connectOptions";
 
-const isFileExisting = async (path) => {
+export default async (path) => {
   const sftp = new Client();
   await sftp.connect(options);
-  let bool;
+  let exists;
+  let type;
   let error;
   try {
-    const returned = await sftp.exists(path);
-    bool = returned !== false;
+    const result = await sftp.exists(path);
+    if (result) {
+      if (result === "d") type = "dir";
+      if (result === "l") type = "link";
+      if (result === "-") type = "file";
+      exists = true;
+    } else {
+      exists = false;
+    }
   } catch (err) {
     error = err.message;
   }
-  return { bool, error };
+  return { exists, type, error };
 };
-
-export default isFileExisting;

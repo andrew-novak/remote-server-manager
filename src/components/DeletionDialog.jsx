@@ -11,17 +11,15 @@ import {
 } from "@material-ui/core";
 import { connect } from "react-redux";
 
+import { colorError } from "../styles";
 import { changeInput, close, confirm } from "../actions/deletionDialog";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   dialogActions: {
     display: "flex",
     justifyContent: "space-between",
   },
-  buttonCancel: {
-    color: theme.palette.error.main,
-  },
-}));
+});
 
 const DeletionDialog = ({
   section,
@@ -57,7 +55,7 @@ const DeletionDialog = ({
         />
       </DialogContent>
       <DialogActions classes={{ root: classes.dialogActions }}>
-        <Button className={classes.buttonCancel} onClick={close}>
+        <Button style={colorError} onClick={close}>
           Cancel
         </Button>
         <Button

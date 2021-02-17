@@ -1,7 +1,7 @@
-import setIpcListener from "./setIpcListener";
-import { sections } from "../../settings";
-import getDirContent from "../remote/getDirContent";
-import sendFiles from "../remote/sendFiles";
+import mainListen from "../mainListen";
+import { locations } from "../../../settings";
+import getDirContent from "../../remote/getDirContent";
+import sendFiles from "../../remote/sendFiles";
 
 const getDoubles = (arr1, arr2) => {
   if (!arr1 || !arr2) throw new Error("Pass 2 arrays as arguments.");
@@ -14,10 +14,11 @@ const getDoubles = (arr1, arr2) => {
   return doubles;
 };
 
-const listenSendFiles = () => {
-  setIpcListener("send-files", async (reply, { files, section }) => {
+export default () => {
+  mainListen("send-files", async (args, reply) => {
+    const { files, section } = args;
     const filenames = files.map((file) => file.path);
-    const targetDir = sections[section].location;
+    const targetDir = locations.remote.sections[section];
     const { filenames: remoteFilenames, error } = await getDirContent(
       targetDir
     );
@@ -39,5 +40,3 @@ const listenSendFiles = () => {
     });
   });
 };
-
-export default listenSendFiles;

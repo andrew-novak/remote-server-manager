@@ -46,7 +46,7 @@ const ConsecutiveSnackbars = ({
         horizontal: "left",
       }}
       open={isOpen}
-      autoHideDuration={6000}
+      autoHideDuration={2500}
       onClose={handleClose}
       onExited={handleExited}
       message={messageInfo ? messageInfo.message : null}

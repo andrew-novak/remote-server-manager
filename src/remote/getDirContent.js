@@ -2,7 +2,7 @@ import Client from "ssh2-sftp-client";
 
 import options from "./connectOptions";
 
-const getDirContent = async (path) => {
+export default async (path) => {
   const sftp = new Client();
   await sftp.connect(options);
   let files;
@@ -16,5 +16,3 @@ const getDirContent = async (path) => {
   }
   return { filenames, error };
 };
-
-export default getDirContent;

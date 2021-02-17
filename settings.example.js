@@ -1,10 +1,13 @@
 module.exports = {
-  sections: {
-    config: {
-      location: "path to nginx conf.d directory",
+  locations: {
+    local: {
+      temporary: "path to the dir that will store temporary files",
     },
-    static: {
-      location: "path to nginx static files directory",
+    remote: {
+      sections: {
+        config: "path to nginx conf.d directory",
+        static: "path to nginx static files directory",
+      },
     },
   },
 };

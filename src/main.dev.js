@@ -1,9 +1,9 @@
 import "regenerator-runtime/runtime";
 import { app, BrowserWindow, shell } from "electron";
 
-import setAllIpcListeners from "./ipc/setAllIpcListeners";
+import setMainListeners from "./ipc/setMainListeners";
 
-setAllIpcListeners();
+setMainListeners();
 
 let mainWindow = null;
 

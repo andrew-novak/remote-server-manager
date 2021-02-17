@@ -31,7 +31,11 @@ const HomeScreen = ({ getState }) => {
       <Container maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4}>
-            <FilesSection sectionName="config" title="Nginx Configuration" />
+            <FilesSection
+              sectionName="config"
+              textEdition
+              title="Nginx Configuration"
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <FilesSection sectionName="static" title="Static" />

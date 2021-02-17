@@ -13,7 +13,7 @@ export default {
     filename: "renderer.dev.js",
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json"],
+    extensions: [".js", ".jsx", ".json", ".css"],
   },
   module: {
     rules: [
@@ -26,6 +26,11 @@ export default {
             cacheDirectory: true,
           },
         },
+      },
+      {
+        test: /\.css$/,
+        // exclude: /node_modules/,
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
