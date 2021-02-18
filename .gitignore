@@ -25,3 +25,6 @@ yarn-error.log*
 
 # Configuration
 settings.js
+
+# Backup files
+*~

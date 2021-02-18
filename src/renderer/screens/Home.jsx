@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomeScreen = ({ getState }) => {
+const Home = ({ isConfigured, getState }) => {
   useEffect(() => {
     getState();
   }, []);
@@ -48,4 +48,9 @@ const HomeScreen = ({ getState }) => {
   );
 };
 
-export default connect(null, { getState })(HomeScreen);
+const mapState = (state) => {
+  const { isConfigured } = state.config;
+  return { isConfigured };
+};
+
+export default connect(mapState, { getState })(Home);

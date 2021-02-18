@@ -1,3 +1,5 @@
+import { HotModuleReplacementPlugin } from "webpack";
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import path from "path";
 import { spawn } from "child_process";
 
@@ -7,7 +9,7 @@ const publicPath = `http://localhost:${port}/dist`;
 export default {
   mode: "development",
   target: "electron-renderer",
-  entry: require.resolve("../src/index.jsx"),
+  entry: require.resolve("../src/renderer/index.jsx"),
   output: {
     publicPath: `http://localhost:${port}/dist/`,
     filename: "renderer.dev.js",
@@ -21,9 +23,10 @@ export default {
         test: /\.jsx$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: require.resolve("babel-loader"),
           options: {
             cacheDirectory: true,
+            plugins: [require.resolve("react-refresh/babel")].filter(Boolean),
           },
         },
       },
@@ -34,6 +37,10 @@ export default {
       },
     ],
   },
+  plugins: [
+    new HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
+  ].filter(Boolean),
   devServer: {
     port,
     publicPath,

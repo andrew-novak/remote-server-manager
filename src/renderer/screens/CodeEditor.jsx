@@ -12,14 +12,7 @@ import { connect } from "react-redux";
 import { colorError } from "../styles";
 import { close, setCode, save } from "../actions/codeEditor";
 
-const CodeEditorScreen = ({
-  section,
-  filename,
-  code,
-  close,
-  setCode,
-  save,
-}) => (
+const CodeEditor = ({ section, filename, code, close, setCode, save }) => (
   <>
     <AppBar position="fixed" style={{ background: "white" }}>
       <Toolbar style={{ justifyContent: "space-between" }}>
@@ -58,4 +51,4 @@ const mapState = (state) => {
   return { section, filename, code };
 };
 
-export default connect(mapState, { close, setCode, save })(CodeEditorScreen);
+export default connect(mapState, { close, setCode, save })(CodeEditor);

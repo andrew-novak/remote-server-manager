@@ -1,7 +1,10 @@
-import mainListen from "../mainListen";
-import { locations } from "../../../settings";
-import isFileExisting from "../../remote/isFileExisting";
-import deleteFile from "../../remote/deleteFile";
+import store from "../../electronStore";
+
+/*
+export default ("delete-file", async (args, reply) => {
+  st
+});
+*/
 
 export default () =>
   mainListen("delete-file", async (args, reply) => {
