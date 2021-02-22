@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 import {
   Paper,
   Typography,
@@ -57,7 +58,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FilesSection = ({
-  sectionName,
+  section,
+  sshConfig,
+  locations,
   title,
   textEdition,
   files,
@@ -69,10 +72,12 @@ const FilesSection = ({
   openCodeEditor,
   openDeletionDialog,
 }) => {
-  const { isOpen: isDropzoneOpen, files: dropzoneFiles } = dropzones[
-    sectionName
-  ];
-  const filenames = files[sectionName];
+  const { isOpen: isDropzoneOpen, files: dropzoneFiles } = dropzones[section];
+  const filenames = files[section];
+  const location = locations[section];
+
+  const history = useHistory();
+  const goToEditor = () => history.push("/code-editor");
 
   const classes = useStyles();
 
@@ -85,11 +90,21 @@ const FilesSection = ({
       />
       <ListItemSecondaryAction>
         {textEdition ? (
-          <IconButton onClick={() => openCodeEditor(sectionName, filename)}>
+          <IconButton
+            onClick={() =>
+              openCodeEditor({
+                sshConfig,
+                location,
+                section,
+                filename,
+                goToEditor,
+              })
+            }
+          >
             <IconEdit />
           </IconButton>
         ) : null}
-        <IconButton onClick={() => openDeletionDialog(sectionName, filename)}>
+        <IconButton onClick={() => openDeletionDialog(section, filename)}>
           <IconDelete />
         </IconButton>
       </ListItemSecondaryAction>
@@ -109,7 +124,7 @@ const FilesSection = ({
             <Button
               style={colorError}
               startIcon={<IconClose />}
-              onClick={() => closeDropzone(sectionName)}
+              onClick={() => closeDropzone(section)}
             >
               Cancel
             </Button>
@@ -117,7 +132,13 @@ const FilesSection = ({
               color="primary"
               startIcon={<IconSend />}
               disabled={dropzoneFiles.length === 0}
-              onClick={() => sendFiles(sectionName, dropzoneFiles)}
+              onClick={() =>
+                sendFiles({
+                  location,
+                  section,
+                  files: dropzoneFiles,
+                })
+              }
             >
               Send
             </Button>
@@ -126,7 +147,7 @@ const FilesSection = ({
           <Button
             color="primary"
             startIcon={<IconAdd />}
-            onClick={() => openDropzone(sectionName)}
+            onClick={() => openDropzone(section)}
           >
             Add
           </Button>
@@ -136,7 +157,7 @@ const FilesSection = ({
         <div className={classes.dropzone}>
           <Dropzone
             files={dropzoneFiles}
-            setFiles={(files) => setDropzoneFiles(sectionName, files)}
+            setFiles={(files) => setDropzoneFiles(section, files)}
           />
         </div>
       ) : null}
@@ -146,8 +167,10 @@ const FilesSection = ({
 };
 
 const mapState = (state) => {
+  const sshConfig = state.config.ssh;
+  const locations = state.config.sections;
   const { files, dropzones } = state;
-  return { files, dropzones };
+  return { sshConfig, locations, files, dropzones };
 };
 
 export default connect(mapState, {

@@ -1,5 +1,6 @@
 import "regenerator-runtime/runtime";
 import { app, BrowserWindow, shell } from "electron";
+import path from "path";
 
 import setAllListeners from "./ipc/setAllListeners";
 
@@ -38,7 +39,9 @@ const createWindow = async () => {
     },
   });
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  mainWindow.loadURL(
+    `file://${path.join(__dirname, "../renderer/index.html")}`
+  );
 
   mainWindow.webContents.on("did-finish-load", () => {
     if (!mainWindow) {

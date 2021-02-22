@@ -19,5 +19,5 @@ export const sendWithResponse = (channel, args = {}) =>
     }, 10000);
   });
 
-export const sendNoRespons = (channel, args = {}) =>
+export const sendNoResponse = (channel, args = {}) =>
   ipcRenderer.send(channel, args);

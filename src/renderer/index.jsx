@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { Provider as StoreProvider } from "react-redux";
+import { connect, Provider as StoreProvider } from "react-redux";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
 import { render } from "react-dom";
 

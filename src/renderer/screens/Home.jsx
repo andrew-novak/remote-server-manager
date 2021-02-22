@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = ({ isConfigured, getState }) => {
+const Home = ({ sshConfig, sectionPaths, getState }) => {
   useEffect(() => {
-    getState();
+    getState({ sshConfig, sectionPaths });
   }, []);
 
   const classes = useStyles();
@@ -32,13 +32,13 @@ const Home = ({ isConfigured, getState }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4}>
             <FilesSection
-              sectionName="config"
+              section="config"
               textEdition
               title="Nginx Configuration"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <FilesSection sectionName="static" title="Static" />
+            <FilesSection section="static" title="Static" />
           </Grid>
         </Grid>
       </Container>
@@ -49,8 +49,9 @@ const Home = ({ isConfigured, getState }) => {
 };
 
 const mapState = (state) => {
-  const { isConfigured } = state.config;
-  return { isConfigured };
+  const sshConfig = state.config.ssh;
+  const sectionPaths = state.config.sections;
+  return { sshConfig, sectionPaths };
 };
 
 export default connect(mapState, { getState })(Home);

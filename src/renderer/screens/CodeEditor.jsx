@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { AppBar, Toolbar, Button } from "@material-ui/core/";
 import IconArrowBack from "@material-ui/icons/ArrowBack";
 import IconSave from "@material-ui/icons/Save";
@@ -10,45 +11,70 @@ import "prismjs/themes/prism.css";
 import { connect } from "react-redux";
 
 import { colorError } from "../styles";
-import { close, setCode, save } from "../actions/codeEditor";
+import { close, setCode } from "../actions/codeEditor";
+import { overrideFile } from "../actions/files";
 
-const CodeEditor = ({ section, filename, code, close, setCode, save }) => (
-  <>
-    <AppBar position="fixed" style={{ background: "white" }}>
-      <Toolbar style={{ justifyContent: "space-between" }}>
-        <Button
-          style={colorError}
-          startIcon={<IconArrowBack />}
-          onClick={close}
-        >
-          Cancel
-        </Button>
-        <Button
-          color="primary"
-          startIcon={<IconSave />}
-          onClick={() => save(section, filename, code)}
-        >
-          Save
-        </Button>
-      </Toolbar>
-    </AppBar>
-    <Toolbar />
-    <Editor
-      value={code}
-      onValueChange={(code) => setCode(code)}
-      highlight={(code) => highlight(code, languages.nginx)}
-      padding={10}
-      style={{
-        fontFamily: '"Fira code", "Fira Mono", monospace',
-        fontSize: 12,
-      }}
-    />
-  </>
-);
+const CodeEditor = ({
+  sshConfig,
+  tempDir,
+  remoteDir,
+  filename,
+  code,
+  close,
+  setCode,
+  overrideFile,
+}) => {
+  const history = useHistory();
+  const goBack = () => history.goBack();
+  return (
+    <>
+      <AppBar position="fixed" style={{ background: "white" }}>
+        <Toolbar style={{ justifyContent: "space-between" }}>
+          <Button
+            style={colorError}
+            startIcon={<IconArrowBack />}
+            onClick={() => close(goBack)}
+          >
+            Cancel
+          </Button>
+          <Button
+            color="primary"
+            startIcon={<IconSave />}
+            onClick={() =>
+              overrideFile({
+                sshConfig,
+                tempDir,
+                remoteDir,
+                filename,
+                content: code,
+              })
+            }
+          >
+            Save
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+      <Editor
+        value={code}
+        onValueChange={(code) => setCode(code)}
+        highlight={(code) => highlight(code, languages.nginx)}
+        padding={10}
+        style={{
+          fontFamily: '"Fira code", "Fira Mono", monospace',
+          fontSize: 12,
+        }}
+      />
+    </>
+  );
+};
 
 const mapState = (state) => {
   const { section, filename, code } = state.codeEditor;
-  return { section, filename, code };
+  const sshConfig = state.config.ssh;
+  const tempDir = state.config.temporary;
+  const remoteDir = state.config.sections[section];
+  return { sshConfig, tempDir, remoteDir, filename, code };
 };
 
-export default connect(mapState, { close, setCode, save })(CodeEditor);
+export default connect(mapState, { close, setCode, overrideFile })(CodeEditor);

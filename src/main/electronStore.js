@@ -1,7 +1,7 @@
 import Store from "electron-store";
 
 const schema = {
-  settings: null,
+  config: null,
 };
 
 export default new Store(schema);

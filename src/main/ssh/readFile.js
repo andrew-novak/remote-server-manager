@@ -1,12 +1,12 @@
 import Client from "ssh2-promise";
 
-import options from "./connectOptions";
+import prepOptions from "./prepOptions";
 
-export default async (path) => {
+export default async (options, path) => {
   let error;
   let content;
   try {
-    const ssh = new Client(options);
+    const ssh = new Client(prepOptions(options));
     await ssh.connect();
     content = await ssh.exec(`cat ${path}`);
   } catch (err) {

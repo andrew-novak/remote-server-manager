@@ -1,11 +1,7 @@
-import { locations } from "../../../settings";
-import isFileExisting from "../../remote/isFileExisting";
-import deleteFile from "../../remote/deleteFile";
+import isFileExisting from "../../ssh/isFileExisting";
+import deleteFile from "../../ssh/deleteFile";
 
-export default async({ reply, path });
-export default async (args, reply) => {
-  const { section, filename } = args;
-  const path = `${locations.remote.sections[section]}/${filename}`;
+export default async ({ sshConfig, path, reply }) => {
   const { error, exists } = await isFileExisting(path);
   if (error) {
     return reply({ error });
@@ -13,7 +9,7 @@ export default async (args, reply) => {
   if (!exists) {
     return reply({ error: `The file ${path} does not exist` });
   }
-  const deleteError = await deleteFile(path);
+  const deleteError = await deleteFile(sshConfig, path);
   if (deleteError) {
     return reply({ error: deleteError });
   }

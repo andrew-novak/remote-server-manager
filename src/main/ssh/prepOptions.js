@@ -1,12 +1,8 @@
 import { readFileSync } from "fs";
 
-import { ssh } from "../../settings";
-
-const { host, username, privateKey } = ssh;
-
-export default {
+export default ({ host, username, privateKey }) => ({
   host,
   port: 22,
   username,
   privateKey: readFileSync(privateKey),
-};
+});

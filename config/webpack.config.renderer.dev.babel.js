@@ -17,6 +17,10 @@ export default {
   resolve: {
     extensions: [".js", ".jsx", ".json", ".css"],
   },
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
   module: {
     rules: [
       {

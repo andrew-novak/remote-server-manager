@@ -1,10 +1,10 @@
 import Client from "ssh2-sftp-client";
 
-import options from "./connectOptions";
+import prepOptions from "./prepOptions";
 
-export default async (path) => {
+export default async (options, path) => {
   const sftp = new Client();
-  await sftp.connect(options);
+  await sftp.connect(prepOptions(options));
   let error;
   try {
     await sftp.delete(path);

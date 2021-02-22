@@ -14,13 +14,14 @@ export const changeInput = (newValue) => (dispatch) => {
   dispatch({ type: DELETION_DIALOG_CHANGE_INPUT, newValue });
 };
 
+// TODO
 export const close = () => (dispatch) => {
   dispatch({ type: DELETION_DIALOG_CANCEL });
 };
 
-export const confirm = (section, filename, input) => (dispatch) => {
+export const confirm = ({ location, filename, input }) => (dispatch) => {
   if (input !== filename) {
     return dispatch({ type: DELETION_DIALOG_WRONG_FILENAME });
   }
-  return dispatch(deleteFile(section, filename, close));
+  return dispatch(deleteFile({ location, filename, closeDialog: close }));
 };

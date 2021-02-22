@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 });
 
 const DeletionDialog = ({
+  location,
   section,
   filename,
   input,
@@ -60,7 +61,7 @@ const DeletionDialog = ({
         </Button>
         <Button
           color="primary"
-          onClick={() => confirm(section, filename, input)}
+          onClick={() => confirm({ location, filename, input })}
         >
           Confirm
         </Button>
@@ -70,8 +71,10 @@ const DeletionDialog = ({
 };
 
 const mapState = (state) => {
+  const { sections } = state.config;
   const { section, filename, input, error } = state.deletionDialog;
   return {
+    location: sections[section],
     section,
     filename,
     input,

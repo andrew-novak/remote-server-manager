@@ -1,11 +1,11 @@
 import Client from "ssh2-sftp-client";
 
-import options from "./connectOptions";
+import prepOptions from "./prepOptions";
 import asyncForEach from "../helpers/asyncForEach";
 
-export default async (files) => {
+export default async (options, files) => {
   const sftp = new Client();
-  await sftp.connect(options);
+  await sftp.connect(prepOptions(options));
   let error;
   try {
     if (Array.isArray(files)) {

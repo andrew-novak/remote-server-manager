@@ -1,11 +1,12 @@
 import { ipcMain } from "electron";
 
-import getConfig from "./handlers/getConfig";
-import getState from "./handlers/getState";
-import sendFiles from "./handlers/sendFiles";
 import deleteFile from "./handlers/deleteFile";
+import getConfig from "./handlers/getConfig";
 import getFileText from "./handlers/getFileText";
+import getState from "./handlers/getState";
 import overrideFile from "./handlers/overrideFile";
+import sendFiles from "./handlers/sendFiles";
+import setConfig from "./handlers/setConfig";
 
 const handlers = {
   "delete-file": deleteFile,
@@ -14,16 +15,16 @@ const handlers = {
   "get-state": getState,
   "override-file": overrideFile,
   "send-files": sendFiles,
+  "set-config": setConfig,
 };
 
-export default (store) => {
-  const locations = store.get("locations");
+export default () => {
   try {
     Object.entries(handlers).forEach(([channel, handler]) => {
       ipcMain.on(channel, (event, data = {}) => {
         const replyChannel = `${channel}-reply`;
-        const reply = (replyData) event.reply(replyChannel, replyData);
-        handler(data, reply);
+        const reply = (replyData) => event.reply(replyChannel, replyData);
+        handler({ ...data, reply });
       });
     });
   } catch (err) {
