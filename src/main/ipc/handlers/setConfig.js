@@ -1,9 +1,11 @@
-import isConfigOk from "../../helpers/isConfigOk";
+import validateConfig from "../../helpers/validateConfig";
 import store from "../../persistentStore";
 
-export default ({ reply, config }) => {
-  if (!isConfigOk(config))
-    return reply({ error: "The configuration is not correct" });
+export default async ({ reply, config }) => {
+  const { error, errElem } = await validateConfig(config);
+  if (error) {
+    return reply({ error, errElem });
+  }
   store.set("config", config);
   return reply();
 };

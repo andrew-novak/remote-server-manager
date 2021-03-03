@@ -4,7 +4,6 @@ import { Container, Grid } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import FilesSection from "../components/FilesSection";
-import ConsecutiveSnackbars from "../components/ConsecutiveSnackbars";
 import DeletionDialog from "../components/DeletionDialog";
 import { getState } from "../actions/files";
 
@@ -42,7 +41,6 @@ const Home = ({ sshConfig, sectionPaths, getState }) => {
           </Grid>
         </Grid>
       </Container>
-      <ConsecutiveSnackbars />
       <DeletionDialog />
     </div>
   );

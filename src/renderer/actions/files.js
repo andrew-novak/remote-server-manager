@@ -26,8 +26,8 @@ export const sendFiles = ({ sshConfig, location, section, files }) => async (
   const args = { sshConfig, files: reducedFiles, location };
   const reply = await sendWithResponse("send-files", args);
   const { isSuccessful, error } = reply;
-  if (!isSuccessful) return dispatch(addSnackbar(error));
-  dispatch(addSnackbar("Files addded successfully"));
+  if (!isSuccessful) return dispatch(addSnackbar("error", error));
+  dispatch(addSnackbar("error", "Files addded successfully"));
   dispatch(clearDropzone(section));
   return dispatch(getState());
 };
@@ -41,8 +41,8 @@ export const deleteFile = ({
   const path = `${location}/${filename}`;
   const reply = await sendWithResponse("delete-file", { sshConfig, path });
   const { error } = reply;
-  if (error) return dispatch(addSnackbar(error));
-  dispatch(addSnackbar("File deleted successfully"));
+  if (error) return dispatch(addSnackbar("error", error));
+  dispatch(addSnackbar("error", "File deleted successfully"));
   dispatch(closeDialog());
   return dispatch(getState());
 };
@@ -62,7 +62,7 @@ export const overrideFile = ({
     content,
   });
   if (error) return console.log("error: ", error);
-  dispatch(addSnackbar("The file has been successfully overriden"));
+  dispatch(addSnackbar("error", "The file has been successfully overriden"));
   dispatch(closeEditor());
   return dispatch(getState());
 };

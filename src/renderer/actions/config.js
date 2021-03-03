@@ -1,9 +1,11 @@
-import { sendWithResponse } from "../ipc";
 import {
+  CONFIG_LOADING_STOP,
   CONFIG_SET,
-  CONFIG_NOT_FOUND,
+  CONFIG_SHOW_HINT,
   CONFIG_RESTART,
 } from "../constants/actionTypes";
+import { sendWithResponse } from "../ipc";
+import { add as addSnackbar } from "./snackbars";
 
 export const setConfig = ({
   host,
@@ -18,15 +20,21 @@ export const setConfig = ({
     temporary,
     sections: { config: configDir, static: staticDir },
   };
-  const { error } = await sendWithResponse("set-config", { config });
-  if (error) return console.log("error: ", error);
+  const { error, errElem } = await sendWithResponse("set-config", { config });
+  if (error) {
+    dispatch({ type: CONFIG_SHOW_HINT, error, errElem });
+    const snackError = errElem ? "Problem with entered info" : error;
+    return dispatch(addSnackbar("error", snackError));
+  }
   return dispatch({ type: CONFIG_SET, config });
 };
 
 export const getConfig = () => async (dispatch) => {
   const { error, config } = await sendWithResponse("get-config");
-  if (error) return console.log("error: ", error);
-  if (!config) return dispatch({ type: CONFIG_NOT_FOUND });
+  if (error) {
+    dispatch({ type: CONFIG_LOADING_STOP });
+    return dispatch(addSnackbar("error", error));
+  }
   return dispatch({ type: CONFIG_SET, config });
 };
 

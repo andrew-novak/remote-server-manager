@@ -5,19 +5,6 @@ export const colorError = {
   color: theme.palette.error.main,
 };
 
-/*
-const useStyles = makeStyles((theme) => ({
-  colorError: {
-    color: theme.palette.error.main,
-  },
-}));
-
-const styles = useStyles();
-
-console.log(styles);
-
-export default styles;
-
-
-console.log(theme.palette.error.main);
-*/
+export const bgColorError = {
+  backgroundColor: theme.palette.error.main,
+};

@@ -18,6 +18,7 @@ module.exports = {
     "no-shadow": "off",
     "prettier/prettier": ["error"],
     "react/prop-types": "off",
+    "no-throw-literal": "off",
   },
   settings: {
     "import/core-modules": [2, "electron", "redux-devtools-extension"],

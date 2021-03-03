@@ -7,6 +7,7 @@ import { getConfig } from "./actions/config";
 import store from "./store";
 import theme from "./theme";
 import Router from "./Router";
+import ConsecutiveSnackbars from "./components/ConsecutiveSnackbars";
 
 const InitWrap = ({ children, getConfig }) => {
   useEffect(getConfig, []);
@@ -20,6 +21,7 @@ const App = () => (
       <InitWrapper>
         <CssBaseline />
         <Router />
+        <ConsecutiveSnackbars />
       </InitWrapper>
     </MuiThemeProvider>
   </StoreProvider>

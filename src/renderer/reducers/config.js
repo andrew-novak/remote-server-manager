@@ -1,13 +1,18 @@
-import { CONFIG_NOT_FOUND, CONFIG_SET } from "../constants/actionTypes";
+import {
+  CONFIG_LOADING_STOP,
+  CONFIG_SET,
+  CONFIG_SHOW_HINT,
+} from "../constants/actionTypes";
 
 const initialState = {
   isLoading: true,
   isConfigured: false,
+  helperTexts: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CONFIG_NOT_FOUND:
+    case CONFIG_LOADING_STOP:
       return {
         ...state,
         isLoading: false,
@@ -19,6 +24,14 @@ export default (state = initialState, action) => {
         ...action.config,
         isLoading: false,
         isConfigured: true,
+      };
+
+    case CONFIG_SHOW_HINT:
+      return {
+        ...state,
+        helperTexts: {
+          [action.errElem]: action.error,
+        },
       };
 
     default:

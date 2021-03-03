@@ -1,9 +1,13 @@
 import store from "../../persistentStore";
-import isConfigOk from "../../helpers/isConfigOk";
+import validateConfig from "../../helpers/validateConfig";
 
-export default ({ reply }) => {
+export default async ({ reply }) => {
   store.delete("config");
   const config = store.get("config");
-  if (!isConfigOk(config)) return reply({ config: null });
+  const { error } = await validateConfig(config);
+  if (error) {
+    store.delete("config");
+    return reply({ error: "Incorrect saved configuration" });
+  }
   return reply({ config });
 };

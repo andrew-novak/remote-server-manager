@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
           ...state.snackPack,
           {
             message: action.message,
+            variant: action.variant,
             key: new Date().getTime(),
           },
         ],

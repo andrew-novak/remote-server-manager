@@ -5,8 +5,8 @@ import {
   SNACKBAR_REMOVE_CURRENT,
 } from "../constants/actionTypes";
 
-export const add = (message) => (dispatch) => {
-  dispatch({ type: SNACKBAR_ADD_NEW, message });
+export const add = (variant, message) => (dispatch) => {
+  dispatch({ type: SNACKBAR_ADD_NEW, variant, message });
 };
 
 export const displayNext = () => (dispatch) => {

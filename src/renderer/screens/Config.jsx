@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Config = ({ setConfig }) => {
+const Config = ({ helperTexts, setConfig }) => {
   const [inputs, setInputs] = useState({
     host: "",
     username: "",
@@ -86,6 +86,8 @@ const Config = ({ setConfig }) => {
             value={inputs.host}
             className={classes.inputShort}
             onChange={handleInput}
+            error={helperTexts.host}
+            helperText={helperTexts.host}
           />
           <TextField
             id="username"
@@ -93,6 +95,8 @@ const Config = ({ setConfig }) => {
             value={inputs.user}
             className={classes.inputShort}
             onChange={handleInput}
+            error={helperTexts.username}
+            helperText={helperTexts.username}
           />
         </div>
         <TextField
@@ -101,6 +105,8 @@ const Config = ({ setConfig }) => {
           value={inputs.config}
           className={classes.inputLong}
           onChange={handleInput}
+          error={helperTexts.config}
+          helperText={helperTexts.config}
         />
         <TextField
           id="static"
@@ -108,6 +114,8 @@ const Config = ({ setConfig }) => {
           value={inputs.static}
           className={classes.inputLong}
           onChange={handleInput}
+          error={helperTexts.static}
+          helperText={helperTexts.static}
         />
         <Typography variant="h6" className={classes.title}>
           Local
@@ -118,6 +126,8 @@ const Config = ({ setConfig }) => {
           value={inputs.privateKey}
           className={classes.inputLong}
           onChange={handleInput}
+          error={helperTexts.privateKey}
+          helperText={helperTexts.privateKey}
         />
         <TextField
           id="temporary"
@@ -125,10 +135,17 @@ const Config = ({ setConfig }) => {
           value={inputs.temporary}
           className={classes.inputLong}
           onChange={handleInput}
+          error={helperTexts.temporary}
+          helperText={helperTexts.temporary}
         />
       </Paper>
     </Container>
   );
 };
 
-export default connect(null, { setConfig })(Config);
+const mapState = (state) => {
+  const { helperTexts } = state.config;
+  return { helperTexts };
+};
+
+export default connect(mapState, { setConfig })(Config);
