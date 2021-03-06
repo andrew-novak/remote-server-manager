@@ -39,7 +39,7 @@ const validateSSH = async (ssh) => {
   if (!fs.existsSync(privateKey))
     return {
       errElem: "privateKey",
-      error: "File does not exist",
+      error: "Does not exist",
     };
 
   const { error } = await justConnect(ssh);
@@ -65,8 +65,10 @@ const validateTemporary = async (path) => {
     return { error: "Incorrect path" };
 
   try {
-    // await fs.promises.access(path, fs.constants.R_OK || fs.contants.W_OK);
-  } catch (error) {
+    await fs.promises.access(path, fs.constants.R_OK || fs.contants.W_OK);
+  } catch (err) {
+    let error = err.message;
+    if (/no such file or directory/.test(error)) error = "Does not exist";
     return { error };
   }
 
@@ -131,6 +133,5 @@ export default async (config) => {
     if (error) return { errElem, error };
   }
 
-  return { error: "Valid, but return error for now" };
-  // return { isOk };
+  return {};
 };

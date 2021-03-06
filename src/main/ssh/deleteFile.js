@@ -2,14 +2,14 @@ import Client from "ssh2-sftp-client";
 
 import prepOptions from "./prepOptions";
 
-export default async (options, path) => {
+export default async (sshOptions, path) => {
+  if (!sshOptions || !path) return { error: "Pass all required arguments" };
   const sftp = new Client();
-  await sftp.connect(prepOptions(options));
-  let error;
   try {
+    await sftp.connect(prepOptions(sshOptions));
     await sftp.delete(path);
   } catch (err) {
-    error = err.message;
+    return err.message;
   }
-  return error;
+  return null;
 };

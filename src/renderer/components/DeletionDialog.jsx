@@ -22,7 +22,8 @@ const useStyles = makeStyles({
 });
 
 const DeletionDialog = ({
-  location,
+  sshConfig,
+  sectionPaths,
   section,
   filename,
   input,
@@ -32,6 +33,8 @@ const DeletionDialog = ({
   confirm,
 }) => {
   const isOpen = !!section;
+
+  const location = sectionPaths[section];
 
   const handleInput = (event) => changeInput(event.target.value);
 
@@ -61,7 +64,9 @@ const DeletionDialog = ({
         </Button>
         <Button
           color="primary"
-          onClick={() => confirm({ location, filename, input })}
+          onClick={() =>
+            confirm({ sshConfig, location, filename, input, sectionPaths })
+          }
         >
           Confirm
         </Button>
@@ -71,10 +76,11 @@ const DeletionDialog = ({
 };
 
 const mapState = (state) => {
-  const { sections } = state.config;
+  const { ssh: sshConfig, sections: sectionPaths } = state.config;
   const { section, filename, input, error } = state.deletionDialog;
   return {
-    location: sections[section],
+    sshConfig,
+    sectionPaths,
     section,
     filename,
     input,

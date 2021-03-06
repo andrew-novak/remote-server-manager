@@ -2,17 +2,15 @@ import Client from "ssh2-sftp-client";
 
 import prepOptions from "./prepOptions";
 
-export default async (options, path) => {
+export default async (sshOptions, path) => {
+  if (!sshOptions || !path) return { error: "Pass all required arguments" };
   const sftp = new Client();
-  await sftp.connect(prepOptions(options));
-  let files;
-  let filenames;
-  let error;
   try {
-    files = await sftp.list(path);
-    filenames = files.map((file) => file.name);
+    await sftp.connect(prepOptions(sshOptions));
+    const files = await sftp.list(path);
+    const filenames = files.map((file) => file.name);
+    return { filenames };
   } catch (err) {
-    error = err.message;
+    return { error: err.message };
   }
-  return { filenames, error };
 };

@@ -14,6 +14,7 @@ export const setConfig = ({
   temporary,
   config: configDir,
   static: staticDir,
+  redirect,
 }) => async (dispatch) => {
   const config = {
     ssh: { host, username, privateKey },
@@ -26,7 +27,8 @@ export const setConfig = ({
     const snackError = errElem ? "Problem with entered info" : error;
     return dispatch(addSnackbar("error", snackError));
   }
-  return dispatch({ type: CONFIG_SET, config });
+  dispatch({ type: CONFIG_SET, config });
+  return redirect();
 };
 
 export const getConfig = () => async (dispatch) => {

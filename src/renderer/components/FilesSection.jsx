@@ -21,7 +21,7 @@ import { connect } from "react-redux";
 
 import Dropzone from "./Dropzone";
 import { colorError } from "../styles";
-import { openExisting as openCodeEditor } from "../actions/codeEditor";
+import { open as openCodeEditor } from "../actions/codeEditor";
 import {
   open as openDropzone,
   setFiles as setDropzoneFiles,
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 const FilesSection = ({
   section,
   sshConfig,
-  locations,
+  sectionPaths,
   title,
   textEdition,
   files,
@@ -74,7 +74,7 @@ const FilesSection = ({
 }) => {
   const { isOpen: isDropzoneOpen, files: dropzoneFiles } = dropzones[section];
   const filenames = files[section];
-  const location = locations[section];
+  const location = sectionPaths[section];
 
   const history = useHistory();
   const goToEditor = () => history.push("/code-editor");
@@ -94,8 +94,8 @@ const FilesSection = ({
             onClick={() =>
               openCodeEditor({
                 sshConfig,
-                location,
                 section,
+                location,
                 filename,
                 goToEditor,
               })
@@ -119,6 +119,17 @@ const FilesSection = ({
         </Typography>
       </div>
       <div className={classes.actions}>
+        {textEdition ? (
+          <Button
+            color="primary"
+            startIcon={<IconAdd />}
+            onClick={() => openCodeEditor({ section, goToEditor })}
+          >
+            Create new
+          </Button>
+        ) : null}
+      </div>
+      <div className={classes.actions}>
         {isDropzoneOpen ? (
           <>
             <Button
@@ -134,9 +145,11 @@ const FilesSection = ({
               disabled={dropzoneFiles.length === 0}
               onClick={() =>
                 sendFiles({
-                  location,
+                  sshConfig,
+                  targetDir: location,
                   section,
                   files: dropzoneFiles,
+                  sectionPaths,
                 })
               }
             >
@@ -149,7 +162,7 @@ const FilesSection = ({
             startIcon={<IconAdd />}
             onClick={() => openDropzone(section)}
           >
-            Add
+            Add existing
           </Button>
         )}
       </div>
@@ -168,9 +181,9 @@ const FilesSection = ({
 
 const mapState = (state) => {
   const sshConfig = state.config.ssh;
-  const locations = state.config.sections;
+  const sectionPaths = state.config.sections;
   const { files, dropzones } = state;
-  return { sshConfig, locations, files, dropzones };
+  return { sshConfig, sectionPaths, files, dropzones };
 };
 
 export default connect(mapState, {

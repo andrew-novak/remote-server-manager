@@ -12,23 +12,31 @@ const getDoubles = (arr1, arr2) => {
   return doubles;
 };
 
-export default async ({ sshConfig, files, remoteDir, reply }) => {
+export default async ({ sshConfig, files, targetDir, reply }) => {
   const filenames = files.map((file) => file.path);
-  const { filenames: remoteFilenames, error } = await getDirContent(remoteDir);
+
+  const { filenames: remoteFilenames, error } = await getDirContent(
+    sshConfig,
+    targetDir
+  );
   if (error) return reply({ error });
+
   const doubles = getDoubles(filenames, remoteFilenames);
   if (doubles.length !== 0) {
     return reply({
       error: `The following filenames already exist: ${doubles}`,
     });
   }
+
   const paths = files.map((file) => ({
     local: file.path,
-    remote: `${remoteDir}/${file.name}`,
+    remote: `${targetDir}/${file.name}`,
   }));
-  const sendError = await sendFiles(sshConfig, paths);
-  return reply({
-    isSuccessful: !sendError,
-    error: sendError,
-  });
+
+  {
+    const error = await sendFiles(sshConfig, paths);
+    if (error) return reply({ error });
+  }
+
+  return reply();
 };

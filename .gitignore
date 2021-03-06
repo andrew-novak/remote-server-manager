@@ -28,3 +28,6 @@ settings.js
 
 # Backup files
 *~
+
+# Temporary files
+temporary

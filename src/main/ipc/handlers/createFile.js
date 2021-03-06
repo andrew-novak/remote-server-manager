@@ -2,31 +2,25 @@ import fs from "fs";
 
 import isFileExisting from "../../ssh/isFileExisting";
 import sendFiles from "../../ssh/sendFiles";
-import deleteFile from "../../ssh/deleteFile";
 
 export default async ({
-  reply,
   sshConfig,
-  originalFilename,
   filename,
   content,
   tempDir,
   targetDir,
+  reply,
 }) => {
-  const sameName = originalFilename === filename;
   const tempFull = `${tempDir}/${filename}`;
-  const oldTargetFull = `${targetDir}/${originalFilename}`;
   const targetFull = `${targetDir}/${filename}`;
 
   // check remote
   {
     const { error, exists } = await isFileExisting(sshConfig, targetFull);
     if (error) return reply({ error });
-    if (sameName && !exists)
-      return reply({ error: "Not able to override a non-existent file" });
-    if (!sameName && exists)
+    if (exists)
       return reply({
-        error: `A different file with name ${filename} already exists`,
+        error: `File with name ${filename} already exists in the ${targetDir} section`,
       });
   }
 
@@ -49,21 +43,19 @@ export default async ({
   }
 
   // send
-  const file = { local: tempFull, remote: targetFull };
-  const error = await sendFiles(sshConfig, file);
-  if (error) return reply({ error });
-
-  // delete old remote
-  if (!sameName) {
-    const error = await deleteFile(sshConfig, oldTargetFull);
-    if (error) return reply({ error });
+  {
+    const file = { local: tempFull, remote: targetFull };
+    const error = await sendFiles(sshConfig, file);
+    if (error) {
+      return reply({ error });
+    }
   }
 
   // delete temporary
   try {
     await fs.promises.unlink(tempFull);
-  } catch (error) {
-    return reply({ error });
+  } catch (err) {
+    return reply({ error: err.message });
   }
 
   return reply();

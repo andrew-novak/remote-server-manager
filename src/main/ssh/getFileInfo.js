@@ -35,13 +35,12 @@ const formatPermissions = (string) => {
   };
 };
 
-export default async (options, path) => {
-  let error;
+export default async (sshOptions, path) => {
+  if (!sshOptions || !path) return { error: "Pass all required arguments" };
   try {
-    const ssh = new Client(prepOptions(options));
+    const ssh = new Client(prepOptions(sshOptions));
     await ssh.connect();
     const result = await ssh.exec(`ls -ld ${path}`);
-    console.log("~~~~~ getFileInfo result:\n", result);
     const arr = result.split(" ");
     return {
       type: formatType(arr[0][0]),
@@ -53,9 +52,8 @@ export default async (options, path) => {
       filename: arr[8],
     };
   } catch (err) {
-    error = err.toString();
+    let error = err.toString();
     if (/No such file or directory/.test(error)) error = "Does not exist";
+    return { error };
   }
-  console.log("getFileInfo error:", error);
-  return { error };
 };

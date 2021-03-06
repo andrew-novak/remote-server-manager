@@ -19,9 +19,23 @@ export const close = () => (dispatch) => {
   dispatch({ type: DELETION_DIALOG_CANCEL });
 };
 
-export const confirm = ({ location, filename, input }) => (dispatch) => {
+export const confirm = ({
+  sshConfig,
+  location,
+  filename,
+  input,
+  sectionPaths,
+}) => (dispatch) => {
   if (input !== filename) {
     return dispatch({ type: DELETION_DIALOG_WRONG_FILENAME });
   }
-  return dispatch(deleteFile({ location, filename, closeDialog: close }));
+  return dispatch(
+    deleteFile({
+      sshConfig,
+      location,
+      filename,
+      closeDialog: close,
+      sectionPaths,
+    })
+  );
 };

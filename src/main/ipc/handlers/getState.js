@@ -5,7 +5,7 @@ export default async ({ sshConfig, sectionPaths, reply }) => {
   const checks = [];
 
   const addCheck = async (section, location) => {
-    const { filenames, error } = await getDirContent(sshConfig, location);
+    const { error, filenames } = await getDirContent(sshConfig, location);
     if (error) throw error;
     sections[section] = filenames;
   };

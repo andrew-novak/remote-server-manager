@@ -1,5 +1,6 @@
 import { ipcMain } from "electron";
 
+import createFile from "./handlers/createFile";
 import deleteFile from "./handlers/deleteFile";
 import getConfig from "./handlers/getConfig";
 import getFileText from "./handlers/getFileText";
@@ -9,6 +10,7 @@ import sendFiles from "./handlers/sendFiles";
 import setConfig from "./handlers/setConfig";
 
 const handlers = {
+  "create-file": createFile,
   "delete-file": deleteFile,
   "get-config": getConfig,
   "get-file-text": getFileText,

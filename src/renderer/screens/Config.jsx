@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 import {
   Container,
   Paper,
@@ -51,8 +52,6 @@ const Config = ({ helperTexts, setConfig }) => {
     temporary: path.join(__dirname, "../../temporary"),
   });
 
-  const classes = useStyles();
-
   const handleInput = (event) => {
     const { id, value } = event.target;
     setInputs({
@@ -60,6 +59,11 @@ const Config = ({ helperTexts, setConfig }) => {
       [id]: value,
     });
   };
+
+  const history = useHistory();
+  const redirect = () => history.push("/");
+
+  const classes = useStyles();
 
   return (
     <Container maxWidth="sm" className={classes.title}>
@@ -71,7 +75,7 @@ const Config = ({ helperTexts, setConfig }) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => setConfig(inputs)}
+            onClick={() => setConfig({ ...inputs, redirect })}
           >
             Accept
           </Button>

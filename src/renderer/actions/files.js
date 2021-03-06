@@ -11,25 +11,31 @@ export const getState = ({ sshConfig, sectionPaths }) => async (dispatch) => {
   });
   {
     const { error, sections } = reply;
-    if (error) return console.log("error: ", error);
+    if (error) return dispatch(addSnackbar("error", error));
     return dispatch({ type: SET_ALL_FILENAMES, sections });
   }
 };
 
-export const sendFiles = ({ sshConfig, location, section, files }) => async (
-  dispatch
-) => {
+export const sendFiles = ({
+  sshConfig,
+  targetDir,
+  section,
+  files,
+  sectionPaths,
+}) => async (dispatch) => {
   const reducedFiles = files.map((file) => ({
     name: file.name,
     path: file.path,
   }));
-  const args = { sshConfig, files: reducedFiles, location };
-  const reply = await sendWithResponse("send-files", args);
-  const { isSuccessful, error } = reply;
-  if (!isSuccessful) return dispatch(addSnackbar("error", error));
-  dispatch(addSnackbar("error", "Files addded successfully"));
+  const { error } = await sendWithResponse("send-files", {
+    sshConfig,
+    files: reducedFiles,
+    targetDir,
+  });
+  if (error) return dispatch(addSnackbar("error", error));
+  dispatch(addSnackbar("info", "File(s) addded"));
   dispatch(clearDropzone(section));
-  return dispatch(getState());
+  return dispatch(getState({ sshConfig, sectionPaths }));
 };
 
 export const deleteFile = ({
@@ -37,32 +43,58 @@ export const deleteFile = ({
   location,
   filename,
   closeDialog,
+  sectionPaths,
 }) => async (dispatch) => {
   const path = `${location}/${filename}`;
-  const reply = await sendWithResponse("delete-file", { sshConfig, path });
-  const { error } = reply;
+  const { error } = await sendWithResponse("delete-file", { sshConfig, path });
   if (error) return dispatch(addSnackbar("error", error));
-  dispatch(addSnackbar("error", "File deleted successfully"));
+  dispatch(addSnackbar("info", "File deleted"));
   dispatch(closeDialog());
-  return dispatch(getState());
+  return dispatch(getState({ sshConfig, sectionPaths }));
+};
+
+export const createFile = ({
+  sshConfig,
+  filename,
+  content,
+  tempDir,
+  targetDir,
+  goBack,
+  sectionPaths,
+}) => async (dispatch) => {
+  const { error } = await sendWithResponse("create-file", {
+    sshConfig,
+    filename,
+    content,
+    tempDir,
+    targetDir,
+  });
+  if (error) return dispatch(addSnackbar("error", error));
+  dispatch(addSnackbar("info", "The file has been created"));
+  dispatch(closeEditor(goBack));
+  return dispatch(getState({ sshConfig, sectionPaths }));
 };
 
 export const overrideFile = ({
   sshConfig,
-  tempDir,
-  remoteDir,
+  originalFilename,
   filename,
   content,
+  tempDir,
+  targetDir,
+  goBack,
+  sectionPaths,
 }) => async (dispatch) => {
   const { error } = await sendWithResponse("override-file", {
     sshConfig,
-    tempDir,
-    remoteDir,
+    originalFilename,
     filename,
     content,
+    tempDir,
+    targetDir,
   });
-  if (error) return console.log("error: ", error);
-  dispatch(addSnackbar("error", "The file has been successfully overriden"));
-  dispatch(closeEditor());
-  return dispatch(getState());
+  if (error) return dispatch(addSnackbar("error", error));
+  dispatch(addSnackbar("info", "The file has been overriden"));
+  dispatch(closeEditor(goBack));
+  return dispatch(getState({ sshConfig, sectionPaths }));
 };

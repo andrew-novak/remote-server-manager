@@ -6,6 +6,7 @@ export default async ({ reply, config }) => {
   if (error) {
     return reply({ error, errElem });
   }
+
   store.set("config", config);
   return reply();
 };
