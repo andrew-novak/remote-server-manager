@@ -4,5 +4,5 @@ Easy UI-based control of your linux remote server websites, Node.js APIs and Ngi
 
 Usage:
 
-- Make sure the remote user have correct permissions.
+- Make sure the remote user has correct permissions.
 - Run `npm i` and `npm start`.
