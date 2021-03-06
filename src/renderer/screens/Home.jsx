@@ -9,7 +9,7 @@ import { getState } from "../actions/files";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: "fixed",
+    // position: "fixed",
     height: "100%",
     width: "100%",
     top: 0,
@@ -40,7 +40,7 @@ const Home = ({ sshConfig, sectionPaths, getState }) => {
             <FilesSection section="static" title="Static" />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <FilesSection section="nodeApis" title="NodeJS APIs" />
+            <FilesSection section="nodeApis" title="Node.js APIs" />
           </Grid>
         </Grid>
       </Container>
