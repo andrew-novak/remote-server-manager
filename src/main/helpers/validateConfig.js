@@ -111,7 +111,8 @@ export default async (config) => {
     config.temporary == null ||
     config.sections == null ||
     config.sections.config == null ||
-    config.sections.static == null
+    config.sections.static == null ||
+    config.sections.nodeApis == null
   )
     return { error: "The configuration is incomplete" };
 

@@ -48,6 +48,7 @@ const Config = ({ helperTexts, setConfig }) => {
     username: "",
     config: "/etc/nginx/conf.d",
     static: "/usr/share/nginx/static",
+    nodeApis: "",
     privateKey: path.join(os.homedir(), ".ssh/id_rsa"),
     temporary: path.join(__dirname, "../../temporary"),
   });
@@ -120,6 +121,15 @@ const Config = ({ helperTexts, setConfig }) => {
           onChange={handleInput}
           error={helperTexts.static}
           helperText={helperTexts.static}
+        />
+        <TextField
+          id="nodeApis"
+          label="Node.js APIs"
+          value={inputs.nodeApis}
+          className={classes.inputLong}
+          onChange={handleInput}
+          error={helperTexts.nodeApis}
+          helperText={helperTexts.nodeApis}
         />
         <Typography variant="h6" className={classes.title}>
           Local

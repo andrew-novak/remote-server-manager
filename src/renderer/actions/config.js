@@ -14,12 +14,13 @@ export const setConfig = ({
   temporary,
   config: configDir,
   static: staticDir,
+  nodeApis,
   redirect,
 }) => async (dispatch) => {
   const config = {
     ssh: { host, username, privateKey },
     temporary,
-    sections: { config: configDir, static: staticDir },
+    sections: { config: configDir, static: staticDir, nodeApis },
   };
   const { error, errElem } = await sendWithResponse("set-config", { config });
   if (error) {

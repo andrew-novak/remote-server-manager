@@ -3,6 +3,7 @@ import { SET_ALL_FILENAMES } from "../constants/actionTypes";
 const initialState = {
   config: [],
   static: [],
+  nodeApis: [],
 };
 
 export default (state = initialState, action) => {

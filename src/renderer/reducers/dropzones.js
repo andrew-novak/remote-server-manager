@@ -8,13 +8,14 @@ import {
 const initialState = {
   config: { isOpen: false, files: [] },
   static: { isOpen: false, files: [] },
+  nodeApis: { isOpen: false, files: [] },
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case DROPZONE_OPEN:
       return {
-        ...state,
+        ...initialState,
         [action.section]: {
           ...state[action.section],
           isOpen: true,
