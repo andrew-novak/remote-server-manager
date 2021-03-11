@@ -9,6 +9,7 @@ const initialState = {
   config: { isOpen: false, files: [] },
   static: { isOpen: false, files: [] },
   nodeApis: { isOpen: false, files: [] },
+  deploy: { isOpen: false, files: [] },
 };
 
 export default (state = initialState, action) => {

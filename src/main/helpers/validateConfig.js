@@ -76,6 +76,31 @@ const validateTemporary = async (path) => {
 };
 
 const validateSections = async (ssh, sections) => {
+  const entries = Object.entries(sections);
+
+  // It is intended to check one section after another
+  for (let i = 0; i < entries.length; i += 1) {
+    const [name, path] = entries[i];
+
+    const error = (message) => ({
+      errElem: name,
+      error: message,
+    });
+
+    if (path === "") return error("Enter an absolute path");
+    if (path === "") return error("Enter an absolute path");
+    if (path === "/") return error("Cannot point to '/'");
+    if (/^\/boot/.test(path)) return error("Cannot point to '/boot'");
+    // eslint-disable-next-line no-await-in-loop
+    const { error: err, type, owner } = await getFileInfo(ssh, path);
+    if (err) return error(err);
+    if (type !== "dir") return error("Not a directory");
+    if (owner.user !== ssh.username) return error("Not owned by you");
+  }
+
+  return {};
+
+  /*
   let errElem;
   let error;
 
@@ -99,11 +124,12 @@ const validateSections = async (ssh, sections) => {
   });
 
   return { errElem, error };
+  */
 };
 
 export default async (config) => {
+  if (!config) return { error: "No configuration found" };
   if (
-    config == null ||
     config.ssh == null ||
     config.ssh.host == null ||
     config.ssh.username == null ||
@@ -112,7 +138,8 @@ export default async (config) => {
     config.sections == null ||
     config.sections.config == null ||
     config.sections.static == null ||
-    config.sections.nodeApis == null
+    config.sections.nodeApis == null ||
+    config.sections.deploy == null
   )
     return { error: "The configuration is incomplete" };
 

@@ -49,9 +49,33 @@ const Config = ({ helperTexts, setConfig }) => {
     config: "/etc/nginx/conf.d",
     static: "/usr/share/nginx/static",
     nodeApis: "",
+    deploy: "",
     privateKey: path.join(os.homedir(), ".ssh/id_rsa"),
     temporary: path.join(__dirname, "../../temporary"),
   });
+
+  const history = useHistory();
+  const goHome = () => history.push("/");
+
+  const onAccept = () => {
+    setConfig({
+      config: {
+        ssh: {
+          host: inputs.host,
+          username: inputs.username,
+          privateKey: inputs.privateKey,
+        },
+        temporary: inputs.temporary,
+        sections: {
+          config: inputs.config,
+          static: inputs.static,
+          nodeApis: inputs.nodeApis,
+          deploy: inputs.deploy,
+        },
+      },
+      goHome,
+    });
+  };
 
   const handleInput = (event) => {
     const { id, value } = event.target;
@@ -60,9 +84,6 @@ const Config = ({ helperTexts, setConfig }) => {
       [id]: value,
     });
   };
-
-  const history = useHistory();
-  const redirect = () => history.push("/");
 
   const classes = useStyles();
 
@@ -73,11 +94,7 @@ const Config = ({ helperTexts, setConfig }) => {
           <Typography variant="h4" className={classes.title}>
             Configuration
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setConfig({ ...inputs, redirect })}
-          >
+          <Button variant="contained" color="primary" onClick={onAccept}>
             Accept
           </Button>
         </div>
@@ -130,6 +147,15 @@ const Config = ({ helperTexts, setConfig }) => {
           onChange={handleInput}
           error={helperTexts.nodeApis}
           helperText={helperTexts.nodeApis}
+        />
+        <TextField
+          id="deploy"
+          label="Deployment scripts"
+          value={inputs.deploy}
+          className={classes.inputLong}
+          onChange={handleInput}
+          error={helperTexts.deploy}
+          helperText={helperTexts.deploy}
         />
         <Typography variant="h6" className={classes.title}>
           Local

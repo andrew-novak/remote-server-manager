@@ -42,6 +42,9 @@ const Home = ({ sshConfig, sectionPaths, getState }) => {
           <Grid item xs={12} sm={6} md={4}>
             <FilesSection section="nodeApis" title="Node.js APIs" />
           </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FilesSection section="deploy" title="Deployment scripts" />
+          </Grid>
         </Grid>
       </Container>
       <DeletionDialog />

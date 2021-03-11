@@ -4,6 +4,7 @@ const initialState = {
   config: [],
   static: [],
   nodeApis: [],
+  deploy: [],
 };
 
 export default (state = initialState, action) => {

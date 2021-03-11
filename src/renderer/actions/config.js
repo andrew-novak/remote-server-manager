@@ -7,21 +7,7 @@ import {
 import { sendWithResponse } from "../ipc";
 import { add as addSnackbar } from "./snackbars";
 
-export const setConfig = ({
-  host,
-  username,
-  privateKey,
-  temporary,
-  config: configDir,
-  static: staticDir,
-  nodeApis,
-  redirect,
-}) => async (dispatch) => {
-  const config = {
-    ssh: { host, username, privateKey },
-    temporary,
-    sections: { config: configDir, static: staticDir, nodeApis },
-  };
+export const setConfig = ({ config, goHome }) => async (dispatch) => {
   const { error, errElem } = await sendWithResponse("set-config", { config });
   if (error) {
     dispatch({ type: CONFIG_SHOW_HINT, error, errElem });
@@ -29,7 +15,7 @@ export const setConfig = ({
     return dispatch(addSnackbar("error", snackError));
   }
   dispatch({ type: CONFIG_SET, config });
-  return redirect();
+  return goHome();
 };
 
 export const getConfig = () => async (dispatch) => {
