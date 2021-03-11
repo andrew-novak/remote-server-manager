@@ -4,6 +4,7 @@ import {
   CODE_EDITOR_CLOSE,
   CODE_EDITOR_SET_FILENAME,
   CODE_EDITOR_SET_CODE,
+  CODE_EDITOR_SHOW_HELPER_TEXT,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   originalFilename: null,
   filename: null,
   code: null,
+  helperTexts: {},
 };
 
 export default (state = initialState, action) => {
@@ -48,6 +50,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         code: action.code,
+      };
+
+    case CODE_EDITOR_SHOW_HELPER_TEXT:
+      return {
+        ...state,
+        helperTexts: {
+          [action.errElem]: action.error,
+        },
       };
 
     case CODE_EDITOR_CLOSE:

@@ -1,4 +1,7 @@
-import { SET_ALL_FILENAMES } from "../constants/actionTypes";
+import {
+  SET_ALL_FILENAMES,
+  CODE_EDITOR_SHOW_HELPER_TEXT,
+} from "../constants/actionTypes";
 import { add as addSnackbar } from "./snackbars";
 import { clear as clearDropzone } from "./dropzones";
 import { sendWithResponse } from "../ipc";
@@ -62,14 +65,20 @@ export const createFile = ({
   goBack,
   sectionPaths,
 }) => async (dispatch) => {
-  const { error } = await sendWithResponse("create-file", {
+  const { error, errElem } = await sendWithResponse("create-file", {
     sshConfig,
     filename,
     content,
     tempDir,
     targetDir,
   });
-  if (error) return dispatch(addSnackbar("error", error));
+  if (error) {
+    if (errElem) {
+      dispatch({ type: CODE_EDITOR_SHOW_HELPER_TEXT, errElem, error });
+      return dispatch(addSnackbar("error", "Problem with entered info"));
+    }
+    return dispatch(addSnackbar("error", error));
+  }
   dispatch(addSnackbar("info", "The file has been created"));
   dispatch(closeEditor(goBack));
   return dispatch(getState({ sshConfig, sectionPaths }));

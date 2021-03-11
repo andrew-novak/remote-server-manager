@@ -1,7 +1,7 @@
 import {
   CONFIG_LOADING_STOP,
   CONFIG_SET,
-  CONFIG_SHOW_HINT,
+  CONFIG_SHOW_HELPER_TEXT,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
         isConfigured: true,
       };
 
-    case CONFIG_SHOW_HINT:
+    case CONFIG_SHOW_HELPER_TEXT:
       return {
         ...state,
         helperTexts: {

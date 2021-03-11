@@ -3,6 +3,11 @@ import fs from "fs";
 import isFileExisting from "../../ssh/isFileExisting";
 import sendFiles from "../../ssh/sendFiles";
 
+const validateFilename = (filename) => {
+  if (!filename) return "Provide filename";
+  return null;
+};
+
 export default async ({
   sshConfig,
   filename,
@@ -13,6 +18,12 @@ export default async ({
 }) => {
   const tempFull = `${tempDir}/${filename}`;
   const targetFull = `${targetDir}/${filename}`;
+
+  // check filename
+  {
+    const error = validateFilename(filename);
+    if (error) return reply({ errElem: "filename", error });
+  }
 
   // check remote
   {

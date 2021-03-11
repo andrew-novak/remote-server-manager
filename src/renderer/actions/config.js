@@ -1,7 +1,7 @@
 import {
-  CONFIG_LOADING_STOP,
+  CONFIG_SHOW_HELPER_TEXT,
   CONFIG_SET,
-  CONFIG_SHOW_HINT,
+  CONFIG_LOADING_STOP,
   CONFIG_RESTART,
 } from "../constants/actionTypes";
 import { sendWithResponse } from "../ipc";
@@ -10,9 +10,11 @@ import { add as addSnackbar } from "./snackbars";
 export const setConfig = ({ config, goHome }) => async (dispatch) => {
   const { error, errElem } = await sendWithResponse("set-config", { config });
   if (error) {
-    dispatch({ type: CONFIG_SHOW_HINT, error, errElem });
-    const snackError = errElem ? "Problem with entered info" : error;
-    return dispatch(addSnackbar("error", snackError));
+    if (errElem) {
+      dispatch({ type: CONFIG_SHOW_HELPER_TEXT, errElem, error });
+      return dispatch(addSnackbar("error", "Problem with entered info"));
+    }
+    return dispatch(addSnackbar("error", error));
   }
   dispatch({ type: CONFIG_SET, config });
   return goHome();
@@ -27,5 +29,4 @@ export const getConfig = () => async (dispatch) => {
   return dispatch({ type: CONFIG_SET, config });
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const restart = () => (dispatch) => dispatch({ type: CONFIG_RESTART });
