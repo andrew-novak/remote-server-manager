@@ -6,6 +6,7 @@ import getConfig from "./handlers/getConfig";
 import getFileText from "./handlers/getFileText";
 import getState from "./handlers/getState";
 import overrideFile from "./handlers/overrideFile";
+import runBashFile from "./handlers/runBashFile";
 import sendFiles from "./handlers/sendFiles";
 import setConfig from "./handlers/setConfig";
 
@@ -16,6 +17,7 @@ const handlers = {
   "get-file-text": getFileText,
   "get-state": getState,
   "override-file": overrideFile,
+  "run-bash-file": runBashFile,
   "send-files": sendFiles,
   "set-config": setConfig,
 };

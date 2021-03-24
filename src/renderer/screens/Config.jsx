@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import {
+  useMediaQuery,
   Container,
   Paper,
   Typography,
+  IconButton,
   Button,
   TextField,
 } from "@material-ui/core";
-import os from "os";
-import path from "path";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import SaveIcon from "@material-ui/icons/Save";
 import { connect } from "react-redux";
 
-import { setConfig } from "../actions/config";
+import { getInputs, setStored, setInput } from "../actions/config";
+import theme from "../theme";
+import { colorError } from "../styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,79 +46,85 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Config = ({ helperTexts, setConfig }) => {
-  const [inputs, setInputs] = useState({
-    host: "",
-    username: "",
-    config: "/etc/nginx/conf.d",
-    static: "/usr/share/nginx/static",
-    nodeApis: "",
-    deploy: "",
-    privateKey: path.join(os.homedir(), ".ssh/id_rsa"),
-    temporary: path.join(__dirname, "../../temporary"),
-  });
+const Config = ({
+  isConfigured,
+  helperTexts,
+  inputs,
+  getInputs,
+  setStored,
+  setInput,
+}) => {
+  useEffect(getInputs, []);
 
   const history = useHistory();
+  const goBack = () => history.goBack();
   const goHome = () => history.push("/");
 
-  const onAccept = () => {
-    setConfig({
-      config: {
-        ssh: {
-          host: inputs.host,
-          username: inputs.username,
-          privateKey: inputs.privateKey,
-        },
-        temporary: inputs.temporary,
-        sections: {
-          config: inputs.config,
-          static: inputs.static,
-          nodeApis: inputs.nodeApis,
-          deploy: inputs.deploy,
-        },
-      },
-      goHome,
-    });
-  };
+  const onAccept = () => setStored({ config: inputs, goHome });
 
   const handleInput = (event) => {
     const { id, value } = event.target;
-    setInputs({
-      ...inputs,
-      [id]: value,
-    });
+    let [outerField, field] = id.split(":");
+    if (!field) {
+      field = outerField;
+      outerField = null;
+    }
+    setInput({ outerField, field, value });
   };
 
   const classes = useStyles();
+
+  const isSmaller = useMediaQuery(theme.breakpoints.down("xs"));
 
   return (
     <Container maxWidth="sm" className={classes.title}>
       <Paper className={classes.root}>
         <div className={classes.head}>
+          {isConfigured ? (
+            isSmaller ? (
+              <IconButton style={colorError} onClick={goBack}>
+                <ArrowBackIcon />
+              </IconButton>
+            ) : (
+              <Button
+                style={colorError}
+                startIcon={<ArrowBackIcon />}
+                onClick={goBack}
+              >
+                Back
+              </Button>
+            )
+          ) : null}
           <Typography variant="h4" className={classes.title}>
             Configuration
           </Typography>
-          <Button variant="contained" color="primary" onClick={onAccept}>
-            Accept
-          </Button>
+          {isSmaller ? (
+            <IconButton color="primary" onClick={onAccept}>
+              <SaveIcon />
+            </IconButton>
+          ) : (
+            <Button color="primary" startIcon={<SaveIcon />} onClick={onAccept}>
+              Accept
+            </Button>
+          )}
         </div>
         <Typography variant="h6" className={classes.subtitle}>
           Remote
         </Typography>
         <div className={classes.input1stLine}>
           <TextField
-            id="host"
+            id="ssh:host"
             label="Host"
-            value={inputs.host}
+            value={inputs.ssh.host}
             className={classes.inputShort}
             onChange={handleInput}
             error={helperTexts.host}
             helperText={helperTexts.host}
           />
           <TextField
-            id="username"
+            id="ssh:username"
             label="Username"
-            value={inputs.user}
+            value={inputs.ssh.username}
             className={classes.inputShort}
             onChange={handleInput}
             error={helperTexts.username}
@@ -122,36 +132,36 @@ const Config = ({ helperTexts, setConfig }) => {
           />
         </div>
         <TextField
-          id="config"
+          id="sections:config"
           label="Nginx configurations"
-          value={inputs.config}
+          value={inputs.sections.config}
           className={classes.inputLong}
           onChange={handleInput}
           error={helperTexts.config}
           helperText={helperTexts.config}
         />
         <TextField
-          id="static"
+          id="sections:static"
           label="Nginx static"
-          value={inputs.static}
+          value={inputs.sections.static}
           className={classes.inputLong}
           onChange={handleInput}
           error={helperTexts.static}
           helperText={helperTexts.static}
         />
         <TextField
-          id="nodeApis"
+          id="sections:nodeApis"
           label="Node.js APIs"
-          value={inputs.nodeApis}
+          value={inputs.sections.nodeApis}
           className={classes.inputLong}
           onChange={handleInput}
           error={helperTexts.nodeApis}
           helperText={helperTexts.nodeApis}
         />
         <TextField
-          id="deploy"
+          id="sections:deploy"
           label="Deployment scripts"
-          value={inputs.deploy}
+          value={inputs.sections.deploy}
           className={classes.inputLong}
           onChange={handleInput}
           error={helperTexts.deploy}
@@ -161,9 +171,9 @@ const Config = ({ helperTexts, setConfig }) => {
           Local
         </Typography>
         <TextField
-          id="privateKey"
+          id="ssh:privateKey"
           label="SSH private key"
-          value={inputs.privateKey}
+          value={inputs.ssh.privateKey}
           className={classes.inputLong}
           onChange={handleInput}
           error={helperTexts.privateKey}
@@ -184,8 +194,8 @@ const Config = ({ helperTexts, setConfig }) => {
 };
 
 const mapState = (state) => {
-  const { helperTexts } = state.config;
-  return { helperTexts };
+  const { isConfigured, helperTexts, inputs } = state.config;
+  return { isConfigured, helperTexts, inputs };
 };
 
-export default connect(mapState, { setConfig })(Config);
+export default connect(mapState, { getInputs, setStored, setInput })(Config);

@@ -76,7 +76,7 @@ const DeletionDialog = ({
 };
 
 const mapState = (state) => {
-  const { ssh: sshConfig, sections: sectionPaths } = state.config;
+  const { ssh: sshConfig, sections: sectionPaths } = state.config.stored;
   const { section, filename, input, error } = state.deletionDialog;
   return {
     sshConfig,

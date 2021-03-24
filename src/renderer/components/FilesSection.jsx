@@ -16,6 +16,7 @@ import IconAdd from "@material-ui/icons/Add";
 import IconSend from "@material-ui/icons/Send";
 import IconClose from "@material-ui/icons/Close";
 import IconEdit from "@material-ui/icons/Edit";
+import IconPlayArrow from "@material-ui/icons/PlayArrow";
 import IconDelete from "@material-ui/icons/Delete";
 import { connect } from "react-redux";
 
@@ -59,9 +60,10 @@ const useStyles = makeStyles((theme) => ({
 
 const FilesSection = ({
   section,
+  title,
+  onRun,
   sshConfig,
   sectionPaths,
-  title,
   textEdition,
   files,
   dropzones,
@@ -102,6 +104,11 @@ const FilesSection = ({
             }
           >
             <IconEdit />
+          </IconButton>
+        ) : null}
+        {onRun ? (
+          <IconButton onClick={() => onRun(filename)}>
+            <IconPlayArrow />
           </IconButton>
         ) : null}
         <IconButton onClick={() => openDeletionDialog(section, filename)}>
@@ -180,8 +187,8 @@ const FilesSection = ({
 };
 
 const mapState = (state) => {
-  const sshConfig = state.config.ssh;
-  const sectionPaths = state.config.sections;
+  const sshConfig = state.config.stored.ssh;
+  const sectionPaths = state.config.stored.sections;
   const { files, dropzones } = state;
   return { sshConfig, sectionPaths, files, dropzones };
 };

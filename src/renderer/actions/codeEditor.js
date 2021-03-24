@@ -15,10 +15,9 @@ const openExisting = (
   filename,
   goToEditor
 ) => async (dispatch) => {
-  const { error, content } = await sendWithResponse("get-file-text", {
-    sshConfig,
-    path: `${location}/${filename}`,
-  });
+  const channel = "get-file-text";
+  const data = { sshConfig, path: `${location}/${filename}` };
+  const { error, content } = await sendWithResponse({ channel, data });
   if (error) return console.log("error: ", error);
   dispatch({
     type: CODE_EDITOR_OPEN_EXISTING,

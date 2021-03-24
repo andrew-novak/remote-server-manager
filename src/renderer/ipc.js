@@ -1,7 +1,21 @@
 const { ipcRenderer } = window.require("electron");
 
-export const sendWithResponse = (channel, args = {}) =>
-  new Promise((resolve, reject) => {
+export const listen = (channel, handler) => {
+  ipcRenderer.on(channel, handler);
+};
+
+export const send = (channel, data = {}) => ipcRenderer.send(channel, data);
+
+const defaultOptions = {
+  maxResWaitTime: 10000,
+};
+
+export const sendWithResponse = ({
+  channel,
+  data = {},
+  options = defaultOptions,
+}) =>
+  new Promise((resolve) => {
     const replyChannel = `${channel}-reply`;
 
     const handler = (event, reply = {}) => {
@@ -9,15 +23,14 @@ export const sendWithResponse = (channel, args = {}) =>
       resolve(reply);
     };
 
-    ipcRenderer.on(replyChannel, handler);
+    listen(replyChannel, handler);
 
-    ipcRenderer.send(channel, args);
+    send(channel, data);
 
     setTimeout(() => {
       ipcRenderer.removeListener(replyChannel, handler);
-      reject();
-    }, 10000);
+      resolve({
+        error: new Error("Max waiting time for main response exedeed"),
+      });
+    }, options.maxResWaitTime);
   });
-
-export const sendNoResponse = (channel, args = {}) =>
-  ipcRenderer.send(channel, args);

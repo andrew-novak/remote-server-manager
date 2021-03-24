@@ -1,19 +1,28 @@
 import "regenerator-runtime/runtime";
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS,
+} from "electron-devtools-installer";
 import { app, BrowserWindow, shell } from "electron";
 import path from "path";
 
 import setAllListeners from "./ipc/setAllListeners";
+import createMenu from "./createMenu";
 
 setAllListeners();
 
+const isMac = process.platform === "darwin";
 let mainWindow = null;
 
 const installExtensions = async () => {
+  const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS];
+  return installExtension(extensions)
+    .then((name) => console.log(`Added Extension: ${name}`))
+    .catch((err) => console.log(`An error occurred: ${err}`));
+  /*
   // eslint-disable-next-line global-require, import/no-extraneous-dependencies
   const installer = require("electron-devtools-installer");
   const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ["REACT_DEVELOPER_TOOLS"];
-
   return (
     installer
       .default(
@@ -23,6 +32,7 @@ const installExtensions = async () => {
       // eslint-disable-next-line no-console
       .catch(console.log)
   );
+  */
 };
 
 const createWindow = async () => {
@@ -39,11 +49,15 @@ const createWindow = async () => {
     },
   });
 
+  const { webContents } = mainWindow;
+
+  createMenu(webContents);
+
   mainWindow.loadURL(
     `file://${path.join(__dirname, "../renderer/index.html")}`
   );
 
-  mainWindow.webContents.on("did-finish-load", () => {
+  webContents.on("did-finish-load", () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
@@ -53,21 +67,21 @@ const createWindow = async () => {
       mainWindow.show();
       mainWindow.focus();
     }
-    mainWindow.webContents.openDevTools();
+    webContents.openDevTools();
   });
 
   mainWindow.on("closed", () => {
     mainWindow = null;
   });
 
-  mainWindow.webContents.on("new-window", (event, url) => {
+  webContents.on("new-window", (event, url) => {
     event.preventDefault();
     shell.openExternal(url);
   });
 };
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
+  if (!isMac) {
     app.quit();
   }
 });

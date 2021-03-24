@@ -8,10 +8,9 @@ import { sendWithResponse } from "../ipc";
 import { close as closeEditor } from "./codeEditor";
 
 export const getState = ({ sshConfig, sectionPaths }) => async (dispatch) => {
-  const reply = await sendWithResponse("get-state", {
-    sshConfig,
-    sectionPaths,
-  });
+  const channel = "get-state";
+  const data = { sshConfig, sectionPaths };
+  const reply = await sendWithResponse({ channel, data });
   {
     const { error, sections } = reply;
     if (error) return dispatch(addSnackbar("error", error));
@@ -30,11 +29,9 @@ export const sendFiles = ({
     name: file.name,
     path: file.path,
   }));
-  const { error } = await sendWithResponse("send-files", {
-    sshConfig,
-    files: reducedFiles,
-    targetDir,
-  });
+  const channel = "send-files";
+  const data = { sshConfig, files: reducedFiles, targetDir };
+  const { error } = await sendWithResponse({ channel, data });
   if (error) return dispatch(addSnackbar("error", error));
   dispatch(addSnackbar("info", "File(s) addded"));
   dispatch(clearDropzone(section));
@@ -49,7 +46,10 @@ export const deleteFile = ({
   sectionPaths,
 }) => async (dispatch) => {
   const path = `${location}/${filename}`;
-  const { error } = await sendWithResponse("delete-file", { sshConfig, path });
+  const { error } = await sendWithResponse({
+    channel: "delete-file",
+    data: { sshConfig, path },
+  });
   if (error) return dispatch(addSnackbar("error", error));
   dispatch(addSnackbar("info", "File deleted"));
   dispatch(closeDialog());
@@ -65,13 +65,9 @@ export const createFile = ({
   goBack,
   sectionPaths,
 }) => async (dispatch) => {
-  const { error, errElem } = await sendWithResponse("create-file", {
-    sshConfig,
-    filename,
-    content,
-    tempDir,
-    targetDir,
-  });
+  const channel = "create-file";
+  const data = { sshConfig, filename, content, tempDir, targetDir };
+  const { error, errElem } = await sendWithResponse({ channel, data });
   if (error) {
     if (errElem) {
       dispatch({ type: CODE_EDITOR_SHOW_HELPER_TEXT, errElem, error });
@@ -94,14 +90,16 @@ export const overrideFile = ({
   goBack,
   sectionPaths,
 }) => async (dispatch) => {
-  const { error } = await sendWithResponse("override-file", {
+  const channel = "override-file";
+  const data = {
     sshConfig,
     originalFilename,
     filename,
     content,
     tempDir,
     targetDir,
-  });
+  };
+  const { error } = await sendWithResponse({ channel, data });
   if (error) return dispatch(addSnackbar("error", error));
   dispatch(addSnackbar("info", "The file has been overriden"));
   dispatch(closeEditor(goBack));

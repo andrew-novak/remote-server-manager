@@ -53,11 +53,11 @@ const SaveButton = ({
 };
 
 const mapState = (state) => {
-  const sshConfig = state.config.ssh;
+  const sshConfig = state.config.stored.ssh;
   const { isNew, section, originalFilename, filename, code } = state.codeEditor;
-  const tempDir = state.config.temporary;
-  const targetDir = state.config.sections[section];
-  const sectionPaths = state.config.sections;
+  const tempDir = state.config.stored.temporary;
+  const targetDir = state.config.stored.sections[section];
+  const sectionPaths = state.config.stored.sections;
   return {
     sshConfig,
     isNew,

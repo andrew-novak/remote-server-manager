@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import FilesSection from "../components/FilesSection";
 import DeletionDialog from "../components/DeletionDialog";
 import { getState } from "../actions/files";
+import runBashFile from "../actions/runBashFile";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,10 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = ({ sshConfig, sectionPaths, getState }) => {
-  useEffect(() => {
-    getState({ sshConfig, sectionPaths });
-  }, []);
+const Home = ({ sshConfig, sectionPaths, getState, runBashFile }) => {
+  useEffect(() => getState({ sshConfig, sectionPaths }), []);
 
   const classes = useStyles();
 
@@ -32,8 +31,8 @@ const Home = ({ sshConfig, sectionPaths, getState }) => {
           <Grid item xs={12} sm={6} md={4}>
             <FilesSection
               section="config"
-              textEdition
               title="Nginx Configuration"
+              textEdition
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -45,8 +44,15 @@ const Home = ({ sshConfig, sectionPaths, getState }) => {
           <Grid item xs={12} sm={6} md={4}>
             <FilesSection
               section="deploy"
-              textEdition
               title="Deployment scripts"
+              textEdition
+              onRun={(filename) =>
+                runBashFile({
+                  sshConfig,
+                  location: sectionPaths.deploy,
+                  filename,
+                })
+              }
             />
           </Grid>
         </Grid>
@@ -57,9 +63,9 @@ const Home = ({ sshConfig, sectionPaths, getState }) => {
 };
 
 const mapState = (state) => {
-  const sshConfig = state.config.ssh;
-  const sectionPaths = state.config.sections;
+  const sshConfig = state.config.stored.ssh;
+  const sectionPaths = state.config.stored.sections;
   return { sshConfig, sectionPaths };
 };
 
-export default connect(mapState, { getState })(Home);
+export default connect(mapState, { getState, runBashFile })(Home);
