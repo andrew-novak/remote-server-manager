@@ -108,7 +108,7 @@ const Config = ({
             </Button>
           )}
         </div>
-        <Typography variant="h6" className={classes.subtitle}>
+        <Typography variant="h6" className={classes.title}>
           Remote
         </Typography>
         <div className={classes.input1stLine}>
@@ -171,15 +171,6 @@ const Config = ({
           Local
         </Typography>
         <TextField
-          id="ssh:privateKey"
-          label="SSH private key"
-          value={inputs.ssh.privateKey}
-          className={classes.inputLong}
-          onChange={handleInput}
-          error={helperTexts.privateKey}
-          helperText={helperTexts.privateKey}
-        />
-        <TextField
           id="temporary"
           label="Temporary"
           value={inputs.temporary}
@@ -192,6 +183,18 @@ const Config = ({
     </Container>
   );
 };
+
+/*
+<TextField
+  id="ssh:privateKey"
+  label="SSH private key"
+  value={inputs.ssh.privateKey}
+  className={classes.inputLong}
+  onChange={handleInput}
+  error={helperTexts.privateKey}
+  helperText={helperTexts.privateKey}
+/>
+*/
 
 const mapState = (state) => {
   const { isConfigured, helperTexts, inputs } = state.config;

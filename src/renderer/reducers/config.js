@@ -1,4 +1,4 @@
-import os from "os";
+// import os from "os";
 import path from "path";
 
 import {
@@ -18,7 +18,7 @@ const initialState = {
     ssh: {
       host: "",
       username: "",
-      privateKey: path.join(os.homedir(), ".ssh/id_rsa"),
+      // privateKey: path.join(os.homedir(), ".ssh/id_rsa"),
     },
     temporary: path.join(__dirname, "../../temporary"),
     sections: {

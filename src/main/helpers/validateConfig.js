@@ -12,7 +12,7 @@ const regexes = {
 };
 
 const validateSSH = async (ssh) => {
-  const { host, username, privateKey } = ssh;
+  const { host, username } = ssh;
 
   if (!host) return { errElem: "host", error: "Enter IPv4 address" };
 
@@ -30,24 +30,24 @@ const validateSSH = async (ssh) => {
       error: "Invalid username",
     };
 
+  /*
   if (!privateKey)
     return {
       errElem: "privateKey",
       error: "Enter an absolute path",
     };
-
   if (!fs.existsSync(privateKey))
     return {
       errElem: "privateKey",
       error: "Does not exist",
     };
+  */
 
   const { error } = await justConnect(ssh);
   if (error) {
     if (/Unsupported key format/.test(error))
       return {
-        errElem: "privateKey",
-        error: "Unsupported format",
+        error: "Unsupported SSH private key format",
       };
     return { error: "Unable to connect" };
   }
@@ -99,32 +99,6 @@ const validateSections = async (ssh, sections) => {
   }
 
   return {};
-
-  /*
-  let errElem;
-  let error;
-
-  await Promise.all(
-    Object.entries(sections).map(async ([section, path]) => {
-      const setErr = (err) => {
-        errElem = section;
-        throw err;
-      };
-      if (path === "") return setErr("Enter an absolute path");
-      if (path === "/") return setErr("Cannot point to '/'");
-      if (/^\/boot/.test(path)) return setErr("Cannot point to '/boot'");
-      const { error: err, type, owner } = await getFileInfo(ssh, path);
-      if (err) return setErr(err);
-      if (type !== "dir") return setErr("Not a directory");
-      if (owner.user !== ssh.username) return setErr("Not owned by you");
-      return null;
-    })
-  ).catch((err) => {
-    error = err;
-  });
-
-  return { errElem, error };
-  */
 };
 
 export default async (config) => {
@@ -133,7 +107,6 @@ export default async (config) => {
     config.ssh == null ||
     config.ssh.host == null ||
     config.ssh.username == null ||
-    config.ssh.privateKey == null ||
     config.temporary == null ||
     config.sections == null ||
     config.sections.config == null ||
