@@ -1,5 +1,6 @@
-import Client from "ssh2-promise";
+import { Client } from "ssh2";
 
+import ssh2DataToArray from "./ssh2DataToArray";
 import prepOptions from "./prepOptions";
 
 const formatType = (char) => {
@@ -35,25 +36,34 @@ const formatPermissions = (string) => {
   };
 };
 
-export default async (sshOptions, path) => {
-  if (!sshOptions || !path) return { error: "Pass all required arguments" };
-  try {
-    const ssh = new Client(prepOptions(sshOptions));
-    await ssh.connect();
-    const result = await ssh.exec(`ls -ld ${path}`);
-    const arr = result.split(" ");
-    return {
-      type: formatType(arr[0][0]),
-      permissions: formatPermissions(arr[0].slice(1)),
-      owner: {
-        user: arr[2],
-        group: arr[3],
-      },
-      filename: arr[8],
-    };
-  } catch (err) {
-    let error = err.toString();
-    if (/No such file or directory/.test(error)) error = "Does not exist";
-    return { error };
-  }
-};
+export default (sshOptions, path) =>
+  new Promise((resolve) => {
+    if (!sshOptions || !path) resolve({ error: "Pass all required arguments" });
+    const ssh2 = new Client();
+    ssh2
+      .on("ready", () => {
+        ssh2.exec(`ls -ld ${path}`, (err, stream) => {
+          if (err) resolve({ error: err.message });
+          stream
+            .on("close", () => ssh2.end())
+            .on("data", (data) => {
+              const arr = ssh2DataToArray(data, " ");
+              resolve({
+                type: formatType(arr[0][0]),
+                permissions: formatPermissions(arr[0].slice(1)),
+                owner: {
+                  user: arr[2],
+                  group: arr[3],
+                },
+                filename: arr[8],
+              });
+            })
+            .stderr.on("data", (data) => {
+              const arr = ssh2DataToArray(data, ": ");
+              const error = arr[2];
+              resolve({ error });
+            });
+        });
+      })
+      .connect(prepOptions(sshOptions));
+  });

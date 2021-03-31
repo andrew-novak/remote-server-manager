@@ -1,39 +1,31 @@
 import { Client } from "ssh2";
 
+import ssh2DataFromData from "./ssh2DataToArray";
 import prepOptions from "./prepOptions";
 
-export default (sshOptions, path) => {
-  if (!sshOptions || !path) return { error: "Pass all required arguments" };
-  return new Promise((resolve) => {
-    try {
-      const ssh = new Client();
-      ssh
-        .on("ready", () => {
-          console.log("Client :: ready");
-
-          const cmd = `bash ${path}`;
-
-          ssh.exec(cmd, (err, stream) => {
-            if (err) throw err;
-            stream
-              .on("close", (code, signal) => {
-                console.log(
-                  `SSH Stream :: close :: code: ${code}, signal: ${signal}`
-                );
-                ssh.end();
-                resolve({});
-              })
-              .on("data", (data) => {
-                console.log(`STDOUT: ${data}`);
-              })
-              .stderr.on("data", (data) => {
-                console.log(`STDERR: ${data}`);
-              });
-          });
-        })
-        .connect(prepOptions(sshOptions));
-    } catch (err) {
-      resolve({ error: err.message });
-    }
+export default (sshOptions, path) =>
+  new Promise((resolve) => {
+    if (!sshOptions || !path) resolve({ error: "Pass all required arguments" });
+    const ssh2 = new Client();
+    ssh2
+      .on("ready", () => {
+        ssh2.exec(`bash ${path}`, (err, stream) => {
+          if (err) resolve({ error: err.message });
+          stream
+            .on("close", (code, signal) => {
+              console.log(
+                `ssh2 Stream :: close :: code: ${code}, signal: ${signal}`
+              );
+              ssh2.end();
+              resolve({});
+            })
+            .on("data", (data) => console.log(`STDOUT: ${data}`))
+            .stderr.on("data", (data) => {
+              const arr = ssh2DataFromData(data, ": ");
+              const error = arr[2];
+              resolve({ error });
+            });
+        });
+      })
+      .connect(prepOptions(sshOptions));
   });
-};
