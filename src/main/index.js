@@ -53,9 +53,12 @@ const createWindow = async () => {
 
   createMenu(webContents);
 
-  mainWindow.loadURL(
-    `file://${path.join(__dirname, "../renderer/index.html")}`
-  );
+  const address =
+    process.env.NODE_ENV === "production"
+      ? "./index.html"
+      : "../renderer/index.html";
+
+  mainWindow.loadURL(`file://${path.join(__dirname, address)}`);
 
   webContents.on("did-finish-load", () => {
     if (!mainWindow) {
