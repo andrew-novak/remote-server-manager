@@ -7,6 +7,7 @@ import {
 } from "../constants/actionTypes";
 
 import { sendWithResponse } from "../ipc";
+import { add as addSnackbar } from "./snackbars";
 
 const openExisting = (
   sshConfig,
@@ -18,7 +19,7 @@ const openExisting = (
   const channel = "get-file-text";
   const data = { sshConfig, path: `${location}/${filename}` };
   const { error, content } = await sendWithResponse({ channel, data });
-  if (error) return console.log("error: ", error);
+  if (error) return dispatch(addSnackbar("error", error));
   dispatch({
     type: CODE_EDITOR_OPEN_EXISTING,
     section,

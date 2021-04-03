@@ -1,4 +1,4 @@
-import { HotModuleReplacementPlugin } from "webpack";
+import { EnvironmentPlugin, HotModuleReplacementPlugin } from "webpack";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import path from "path";
 import { spawn } from "child_process";
@@ -42,6 +42,9 @@ export default {
     ],
   },
   plugins: [
+    new EnvironmentPlugin({
+      NODE_ENV: "development",
+    }),
     new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
   ].filter(Boolean),

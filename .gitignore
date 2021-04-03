@@ -7,7 +7,7 @@
 /coverage
 
 # Production
-/prod
+/prod/bundle
 /release
 
 # Misc

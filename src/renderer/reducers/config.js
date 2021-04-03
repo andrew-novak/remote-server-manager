@@ -20,7 +20,6 @@ const initialState = {
       username: "",
       // privateKey: path.join(os.homedir(), ".ssh/id_rsa"),
     },
-    temporary: path.join(__dirname, "../../temporary"),
     sections: {
       config: "/etc/nginx/conf.d",
       static: "/usr/share/nginx/static",

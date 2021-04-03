@@ -1,6 +1,5 @@
-import fs from "fs";
-
 import isFileExisting from "../../ssh/isFileExisting";
+import saveToTmp from "../../helpers/saveToTmp";
 import sendFiles from "../../ssh/sendFiles";
 import deleteFile from "../../ssh/deleteFile";
 
@@ -10,11 +9,9 @@ export default async ({
   originalFilename,
   filename,
   content,
-  tempDir,
   targetDir,
 }) => {
   const sameName = originalFilename === filename;
-  const tempFull = `${tempDir}/${filename}`;
   const oldTargetFull = `${targetDir}/${originalFilename}`;
   const targetFull = `${targetDir}/${filename}`;
 
@@ -30,40 +27,22 @@ export default async ({
       });
   }
 
-  // check temporary
-  try {
-    const exists = fs.existsSync(tempFull);
-    if (exists)
-      return reply({
-        error: `A file wth name ${filename} already exists in the temporary directory`,
-      });
-  } catch (err) {
-    return reply({ error: err.message });
-  }
-
-  // create temporary
-  try {
-    await fs.promises.writeFile(tempFull, content);
-  } catch (err) {
-    return reply({ error: err.message });
-  }
-
-  // send
-  const file = { local: tempFull, remote: targetFull };
-  const error = await sendFiles(sshConfig, file);
+  // create tmp
+  const { error, path, clean } = await saveToTmp(content);
   if (error) return reply({ error });
+  // send
+  {
+    const file = { local: path, remote: targetFull };
+    const error = await sendFiles(sshConfig, file);
+    if (error) return reply({ error });
+  }
+  // delete tmp
+  clean();
 
   // delete old remote
   if (!sameName) {
     const error = await deleteFile(sshConfig, oldTargetFull);
     if (error) return reply({ error });
-  }
-
-  // delete temporary
-  try {
-    await fs.promises.unlink(tempFull);
-  } catch (error) {
-    return reply({ error });
   }
 
   return reply();

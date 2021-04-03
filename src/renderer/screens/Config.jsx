@@ -118,7 +118,7 @@ const Config = ({
             value={inputs.ssh.host}
             className={classes.inputShort}
             onChange={handleInput}
-            error={helperTexts.host}
+            error={!!helperTexts.host}
             helperText={helperTexts.host}
           />
           <TextField
@@ -127,7 +127,7 @@ const Config = ({
             value={inputs.ssh.username}
             className={classes.inputShort}
             onChange={handleInput}
-            error={helperTexts.username}
+            error={!!helperTexts.username}
             helperText={helperTexts.username}
           />
         </div>
@@ -137,7 +137,7 @@ const Config = ({
           value={inputs.sections.config}
           className={classes.inputLong}
           onChange={handleInput}
-          error={helperTexts.config}
+          error={!!helperTexts.config}
           helperText={helperTexts.config}
         />
         <TextField
@@ -146,7 +146,7 @@ const Config = ({
           value={inputs.sections.static}
           className={classes.inputLong}
           onChange={handleInput}
-          error={helperTexts.static}
+          error={!!helperTexts.static}
           helperText={helperTexts.static}
         />
         <TextField
@@ -155,7 +155,7 @@ const Config = ({
           value={inputs.sections.nodeApis}
           className={classes.inputLong}
           onChange={handleInput}
-          error={helperTexts.nodeApis}
+          error={!!helperTexts.nodeApis}
           helperText={helperTexts.nodeApis}
         />
         <TextField
@@ -164,37 +164,13 @@ const Config = ({
           value={inputs.sections.deploy}
           className={classes.inputLong}
           onChange={handleInput}
-          error={helperTexts.deploy}
+          error={!!helperTexts.deploy}
           helperText={helperTexts.deploy}
-        />
-        <Typography variant="h6" className={classes.title}>
-          Local
-        </Typography>
-        <TextField
-          id="temporary"
-          label="Temporary"
-          value={inputs.temporary}
-          className={classes.inputLong}
-          onChange={handleInput}
-          error={helperTexts.temporary}
-          helperText={helperTexts.temporary}
         />
       </Paper>
     </Container>
   );
 };
-
-/*
-<TextField
-  id="ssh:privateKey"
-  label="SSH private key"
-  value={inputs.ssh.privateKey}
-  className={classes.inputLong}
-  onChange={handleInput}
-  error={helperTexts.privateKey}
-  helperText={helperTexts.privateKey}
-/>
-*/
 
 const mapState = (state) => {
   const { isConfigured, helperTexts, inputs } = state.config;

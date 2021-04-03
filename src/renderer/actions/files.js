@@ -60,13 +60,12 @@ export const createFile = ({
   sshConfig,
   filename,
   content,
-  tempDir,
   targetDir,
   goBack,
   sectionPaths,
 }) => async (dispatch) => {
   const channel = "create-file";
-  const data = { sshConfig, filename, content, tempDir, targetDir };
+  const data = { sshConfig, filename, content, targetDir };
   const { error, errElem } = await sendWithResponse({ channel, data });
   if (error) {
     if (errElem) {
@@ -85,7 +84,6 @@ export const overrideFile = ({
   originalFilename,
   filename,
   content,
-  tempDir,
   targetDir,
   goBack,
   sectionPaths,
@@ -96,7 +94,6 @@ export const overrideFile = ({
     originalFilename,
     filename,
     content,
-    tempDir,
     targetDir,
   };
   const { error } = await sendWithResponse({ channel, data });

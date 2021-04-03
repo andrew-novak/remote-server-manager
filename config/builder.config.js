@@ -1,9 +1,9 @@
 module.exports = {
   productName: "Remote Server Manager",
   directories: {
+    app: "prod",
     output: "release",
   },
-  files: ["prod/", "package.json"],
   linux: {
     target: ["AppImage"],
   },

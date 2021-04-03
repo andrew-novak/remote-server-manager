@@ -1,0 +1,12 @@
+{
+  "name": "remote-server-manager",
+  "productName": "remote-server-manager",
+  "version": "1.0.0",
+  "description": "Easy UI-based control of your linux remote server websites, Node.js APIs and Nginx configuration via SSH.",
+  "main": "./bundle/main.prod.js",
+  "author": {
+    "name": "Andrew Novak",
+    "email": "andrew.novak.developer@gmail.com"
+  },
+  "scripts": {}
+}

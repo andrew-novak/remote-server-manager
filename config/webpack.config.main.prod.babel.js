@@ -1,11 +1,12 @@
 import path from "path";
+import { EnvironmentPlugin } from "webpack";
 
 export default {
   mode: "production",
   target: "electron-main",
   entry: require.resolve("../src/main/index.js"),
   output: {
-    path: path.join(__dirname, "../prod"),
+    path: path.join(__dirname, "../prod/bundle"),
     filename: "main.prod.js",
   },
   module: {
@@ -17,11 +18,13 @@ export default {
       },
     ],
   },
+  plugins: [
+    new EnvironmentPlugin({
+      NODE_ENV: "production",
+    }),
+  ],
   node: {
     __dirname: false,
     __filename: false,
-  },
-  optimization: {
-    minimize: false,
   },
 };

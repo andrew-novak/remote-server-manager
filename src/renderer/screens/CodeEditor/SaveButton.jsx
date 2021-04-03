@@ -13,7 +13,6 @@ const SaveButton = ({
   originalFilename,
   filename,
   code,
-  tempDir,
   targetDir,
   sectionPaths,
   createFile,
@@ -26,7 +25,6 @@ const SaveButton = ({
     originalFilename,
     filename,
     content: code,
-    tempDir,
     targetDir,
     goBack: history.goBack,
     sectionPaths,
@@ -55,7 +53,6 @@ const SaveButton = ({
 const mapState = (state) => {
   const sshConfig = state.config.stored.ssh;
   const { isNew, section, originalFilename, filename, code } = state.codeEditor;
-  const tempDir = state.config.stored.temporary;
   const targetDir = state.config.stored.sections[section];
   const sectionPaths = state.config.stored.sections;
   return {
@@ -64,7 +61,6 @@ const mapState = (state) => {
     originalFilename,
     filename,
     code,
-    tempDir,
     targetDir,
     sectionPaths,
   };

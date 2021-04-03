@@ -44,25 +44,24 @@ export default (sshOptions, path) =>
       .on("ready", () => {
         ssh2.exec(`ls -ld ${path}`, (err, stream) => {
           if (err) resolve({ error: err.message });
-          stream
-            .on("close", () => ssh2.end())
-            .on("data", (data) => {
-              const arr = ssh2DataToArray(data, " ");
-              resolve({
-                type: formatType(arr[0][0]),
-                permissions: formatPermissions(arr[0].slice(1)),
-                owner: {
-                  user: arr[2],
-                  group: arr[3],
-                },
-                filename: arr[8],
-              });
-            })
-            .stderr.on("data", (data) => {
-              const arr = ssh2DataToArray(data, ": ");
-              const error = arr[2];
-              resolve({ error });
+          stream.on("close", () => ssh2.end());
+          stream.on("data", (data) => {
+            const arr = ssh2DataToArray(data, " ");
+            resolve({
+              type: formatType(arr[0][0]),
+              permissions: formatPermissions(arr[0].slice(1)),
+              owner: {
+                user: arr[2],
+                group: arr[3],
+              },
+              filename: arr[8],
             });
+          });
+          stream.stderr.on("data", (data) => {
+            const arr = ssh2DataToArray(data, ": ");
+            const error = arr[2];
+            resolve({ error });
+          });
         });
       })
       .connect(prepOptions(sshOptions));

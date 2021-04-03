@@ -1,5 +1,4 @@
 import os from "os";
-import fs from "fs";
 
 import justConnect from "../ssh/justConnect";
 import getFileInfo from "../ssh/getFileInfo";
@@ -8,6 +7,7 @@ const regexes = {
   ip4Addr: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
   linuxUsername: /^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$/,
   linuxAbsPath: /^\/$|^((\/([a-zA-Z0-9_-]+))+)$/,
+  // eslint-disable-next-line no-useless-escape
   winAbsPath: /^(?:[a-z]:)?[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/,
 };
 
@@ -30,19 +30,6 @@ const validateSSH = async (ssh) => {
       error: "Invalid username",
     };
 
-  /*
-  if (!privateKey)
-    return {
-      errElem: "privateKey",
-      error: "Enter an absolute path",
-    };
-  if (!fs.existsSync(privateKey))
-    return {
-      errElem: "privateKey",
-      error: "Does not exist",
-    };
-  */
-
   const { error } = await justConnect(ssh);
   if (error) {
     if (/Unsupported key format/.test(error))
@@ -50,26 +37,6 @@ const validateSSH = async (ssh) => {
         error: "Unsupported SSH private key format",
       };
     return { error: "Unable to connect" };
-  }
-
-  return {};
-};
-
-const validateTemporary = async (path) => {
-  if (!path) return { error: "Enter an absolute path" };
-
-  if (os.platform() === "linux" && !regexes.linuxAbsPath.test(path))
-    return { error: "Incorrect path" };
-
-  if (os.platform() === "win32" && !regexes.winAbsPath.test(path))
-    return { error: "Incorrect path" };
-
-  try {
-    await fs.promises.access(path, fs.constants.R_OK || fs.contants.W_OK);
-  } catch (err) {
-    let error = err.message;
-    if (/no such file or directory/.test(error)) error = "Does not exist";
-    return { error };
   }
 
   return {};
@@ -107,7 +74,6 @@ export default async (config) => {
     config.ssh == null ||
     config.ssh.host == null ||
     config.ssh.username == null ||
-    config.temporary == null ||
     config.sections == null ||
     config.sections.config == null ||
     config.sections.static == null ||
@@ -116,7 +82,7 @@ export default async (config) => {
   )
     return { error: "The configuration is incomplete" };
 
-  const { ssh, temporary, sections } = config;
+  const { ssh, sections } = config;
 
   if (os.platform() !== "linux" && os.platform() !== "win32")
     return { error: "Currently, only Windows and Linux is supported" };
@@ -124,10 +90,6 @@ export default async (config) => {
   {
     const { errElem, error } = await validateSSH(ssh);
     if (error) return { errElem, error };
-  }
-  {
-    const { error } = await validateTemporary(temporary);
-    if (error) return { errElem: "temporary", error };
   }
   {
     const { errElem, error } = await validateSections(ssh, sections);

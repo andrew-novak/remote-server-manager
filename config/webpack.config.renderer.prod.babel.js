@@ -1,4 +1,5 @@
 import path from "path";
+import { EnvironmentPlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
 export default {
@@ -6,7 +7,7 @@ export default {
   target: "electron-renderer",
   entry: require.resolve("../src/renderer/index.jsx"),
   output: {
-    path: path.join(__dirname, "../prod"),
+    path: path.join(__dirname, "../prod/bundle"),
     filename: "renderer.prod.js",
   },
   resolve: {
@@ -27,6 +28,9 @@ export default {
     ],
   },
   plugins: [
+    new EnvironmentPlugin({
+      NODE_ENV: "production",
+    }),
     new HtmlWebpackPlugin({
       template: "src/renderer/index.html",
     }),
