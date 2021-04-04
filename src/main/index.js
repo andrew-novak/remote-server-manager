@@ -70,7 +70,9 @@ const createWindow = async () => {
       mainWindow.show();
       mainWindow.focus();
     }
-    webContents.openDevTools();
+    if (process.env.NODE_ENV === "development") {
+      webContents.openDevTools();
+    }
   });
 
   mainWindow.on("closed", () => {
