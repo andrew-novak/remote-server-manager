@@ -19,7 +19,10 @@ const openExisting = (
   const channel = "get-file-text";
   const data = { sshConfig, path: `${location}/${filename}` };
   const { error, content } = await sendWithResponse({ channel, data });
-  if (error) return dispatch(addSnackbar("error", error));
+  if (error) {
+    console.error(error);
+    return dispatch(addSnackbar("error", error.message));
+  }
   dispatch({
     type: CODE_EDITOR_OPEN_EXISTING,
     section,

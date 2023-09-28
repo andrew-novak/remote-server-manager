@@ -12,9 +12,13 @@ export default ({ sshConfig, location, filename }) => async (dispatch) => {
       data,
       options,
     });
-    if (error) return dispatch(addSnackbar("error", error));
+    if (error) {
+      console.error(error);
+      return dispatch(addSnackbar("error", error.message));
+    }
     return dispatch(addSnackbar("info", "The script has finished running"));
   } catch (err) {
+    console.error(err);
     return dispatch(addSnackbar("error", err.message));
   }
 };

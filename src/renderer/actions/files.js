@@ -13,7 +13,10 @@ export const getState = ({ sshConfig, sectionPaths }) => async (dispatch) => {
   const reply = await sendWithResponse({ channel, data });
   {
     const { error, sections } = reply;
-    if (error) return dispatch(addSnackbar("error", error));
+    if (error) {
+      console.error(error);
+      return dispatch(addSnackbar("error", error.message));
+    }
     return dispatch({ type: SET_ALL_FILENAMES, sections });
   }
 };
@@ -32,7 +35,7 @@ export const sendFiles = ({
   const channel = "send-files";
   const data = { sshConfig, files: reducedFiles, targetDir };
   const { error } = await sendWithResponse({ channel, data });
-  if (error) return dispatch(addSnackbar("error", error));
+  if (error) return dispatch(addSnackbar("error", error.message));
   dispatch(addSnackbar("info", "File(s) addded"));
   dispatch(clearDropzone(section));
   return dispatch(getState({ sshConfig, sectionPaths }));
@@ -50,7 +53,7 @@ export const deleteFile = ({
     channel: "delete-file",
     data: { sshConfig, path },
   });
-  if (error) return dispatch(addSnackbar("error", error));
+  if (error) return dispatch(addSnackbar("error", error.message));
   dispatch(addSnackbar("info", "File deleted"));
   dispatch(closeDialog());
   return dispatch(getState({ sshConfig, sectionPaths }));
@@ -72,7 +75,7 @@ export const createFile = ({
       dispatch({ type: CODE_EDITOR_SHOW_HELPER_TEXT, errElem, error });
       return dispatch(addSnackbar("error", "Problem with entered info"));
     }
-    return dispatch(addSnackbar("error", error));
+    return dispatch(addSnackbar("error", error.message));
   }
   dispatch(addSnackbar("info", "The file has been created"));
   dispatch(closeEditor(goBack));
@@ -97,7 +100,7 @@ export const overrideFile = ({
     targetDir,
   };
   const { error } = await sendWithResponse({ channel, data });
-  if (error) return dispatch(addSnackbar("error", error));
+  if (error) return dispatch(addSnackbar("error", error.message));
   dispatch(addSnackbar("info", "The file has been overriden"));
   dispatch(closeEditor(goBack));
   return dispatch(getState({ sshConfig, sectionPaths }));
