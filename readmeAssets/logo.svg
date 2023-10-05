@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 550.5 550.5">
+  <defs>
+    <style>
+      .cls-1 {
+        filter: url(#luminosity-invert-7);
+      }
+
+      .cls-2 {
+        mask: url(#mask-10);
+      }
+
+      .cls-3 {
+        filter: url(#luminosity-invert-8);
+      }
+
+      .cls-4 {
+        stroke: #f9f9f9;
+      }
+
+      .cls-4, .cls-5, .cls-6, .cls-7 {
+        fill: none;
+      }
+
+      .cls-4, .cls-6, .cls-7 {
+        stroke-miterlimit: 10;
+        stroke-width: 10px;
+      }
+
+      .cls-8 {
+        filter: url(#luminosity-invert-11);
+      }
+
+      .cls-9 {
+        filter: url(#luminosity-invert-10);
+      }
+
+      .cls-10 {
+        mask: url(#mask-2);
+      }
+
+      .cls-11 {
+        isolation: isolate;
+      }
+
+      .cls-12 {
+        mask: url(#mask-3);
+      }
+
+      .cls-5 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: .5px;
+      }
+
+      .cls-13 {
+        mask: url(#mask-9);
+      }
+
+      .cls-14 {
+        filter: url(#luminosity-invert-9);
+      }
+
+      .cls-6 {
+        stroke: #f7f7f7;
+      }
+
+      .cls-15 {
+        filter: url(#luminosity-invert-5);
+      }
+
+      .cls-16 {
+        mask: url(#mask-5);
+      }
+
+      .cls-17 {
+        filter: url(#luminosity-invert);
+      }
+
+      .cls-7 {
+        stroke: #fff;
+      }
+
+      .cls-18 {
+        filter: url(#luminosity-invert-3);
+      }
+
+      .cls-19 {
+        mask: url(#mask-8);
+      }
+
+      .cls-20 {
+        mask: url(#mask-4);
+      }
+
+      .cls-21 {
+        mix-blend-mode: hard-light;
+        opacity: .29;
+      }
+
+      .cls-22 {
+        mask: url(#mask-6);
+      }
+
+      .cls-23 {
+        filter: url(#luminosity-invert-6);
+      }
+
+      .cls-24 {
+        mask: url(#mask-1);
+      }
+
+      .cls-25 {
+        mask: url(#mask);
+      }
+
+      .cls-26 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-27 {
+        mask: url(#mask-7);
+      }
+
+      .cls-28 {
+        filter: url(#luminosity-invert-2);
+      }
+
+      .cls-29 {
+        filter: url(#luminosity-invert-4);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-34.22" y1="569.02" x2="589.25" y2="-22.81" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1a1a7d"/>
+      <stop offset="1" stop-color="#7e51c4"/>
+    </linearGradient>
+    <filter id="luminosity-invert" x="133.89" y="62.8" width="283" height="425" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask" x="133.89" y="62.8" width="283" height="425" maskUnits="userSpaceOnUse">
+      <g class="cls-17">
+        <image width="283" height="425" transform="translate(133.89 62.8)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARsAAAGpCAYAAAC9L5JfAAAACXBIWXMAAAsSAAALEgHS3X78AAAFTklEQVR4nO3UMQHAMADDsLT8OW8o6kuC4MNn2zeAx67AQMFsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBsgYTZAwmyAhNkACbMBEmYDJMwGSJgNkDAbIGE2QMJsgITZAAmzARJmAyTMBkiYDZAwGyBhNkDCbICE2QAJswESZgMkzAZImA2QMBvgvW0/xPUEUfPULDUAAAAASUVORK5CYII="/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-2" x="155.89" y="87.8" width="237" height="80" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-1" x="155.89" y="87.8" width="237" height="80" maskUnits="userSpaceOnUse">
+      <g class="cls-28">
+        <image width="237" height="80" transform="translate(155.89 87.8)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO0AAABQCAYAAAD1GfIkAAAACXBIWXMAAAsSAAALEgHS3X78AAABAklEQVR4nO3TAQ0AIADDsIN/z6BjSWth2dn2BmRcqaDFtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhZJtH0/PAZ/ZmhQTAAAAAElFTkSuQmCC"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-3" x="156.89" y="175.8" width="237" height="82" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-2" x="156.89" y="175.8" width="237" height="82" maskUnits="userSpaceOnUse">
+      <g class="cls-18">
+        <image width="237" height="82" transform="translate(156.89 175.8)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO0AAABSCAYAAAC40VMvAAAACXBIWXMAAAsSAAALEgHS3X78AAABCElEQVR4nO3TAQ0AIADDsIN/z6BjSWth2dn2BmRcqaDFtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpoWTbB2uXAaMF4VywAAAAAElFTkSuQmCC"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-4" x="155.89" y="267.8" width="237" height="83" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-3" x="155.89" y="267.8" width="237" height="83" maskUnits="userSpaceOnUse">
+      <g class="cls-29">
+        <image width="237" height="83" transform="translate(155.89 267.8)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO0AAABTCAYAAABzjYCKAAAACXBIWXMAAAsSAAALEgHS3X78AAABC0lEQVR4nO3TAQ0AIADDsIN/z6BjSWth2dn2BmRcqaDFtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0EGNaiDEtxJgWYkwLMaaFGNNCjGkhxrQQY1qIMS3EmBZiTAsxpoUY00KMaSHGtBBjWogxLcSYFmJMCzGmhRjTQoxpIca0ULLtA4SaAaVhjUu+AAAAAElFTkSuQmCC"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-5" x="239.89" y="375.8" width="71" height="71" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-4" x="239.89" y="375.8" width="71" height="71" maskUnits="userSpaceOnUse">
+      <g class="cls-15">
+        <image width="71" height="71" transform="translate(239.89 375.8)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAABHCAYAAABVsFofAAAACXBIWXMAAAsSAAALEgHS3X78AAAAm0lEQVR4nO3QAQGAMAAEodf+nWcBdwkgAs+2M369Wu7kBDlBTpAT5AQ5QU6QE+QEOUFOkBPkBDlBTpAT5AQ5QU6QE+QEOUFOkBPkBDlBTpAT5AQ5QU6QE+QEOUFOkBPkBDlBTpAT5AQ5QU6QE+QEOUFOkBPkBDlBTpAT5AQ5QU6QE+QEOUFOkBPkBDlBTpAT5AQ5QU6QE+TcbPsA+O0BjfXkNr4AAAAASUVORK5CYII="/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-6" x="339.89" y="289.8" width="35" height="35" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-5" x="339.89" y="289.8" width="35" height="35" maskUnits="userSpaceOnUse">
+      <g class="cls-23">
+        <use transform="translate(339.89 289.8)" xlink:href="#image-2"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-7" x="299.89" y="289.8" width="35" height="35" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-6" x="299.89" y="289.8" width="35" height="35" maskUnits="userSpaceOnUse">
+      <g class="cls-1">
+        <use transform="translate(299.89 289.8)" xlink:href="#image-2"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-8" x="339.89" y="200.8" width="35" height="34" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-7" x="339.89" y="200.8" width="35" height="34" maskUnits="userSpaceOnUse">
+      <g class="cls-3">
+        <use transform="translate(339.89 200.8)" xlink:href="#image"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-9" x="299.89" y="200.8" width="35" height="34" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-8" x="299.89" y="200.8" width="35" height="34" maskUnits="userSpaceOnUse">
+      <g class="cls-14">
+        <use transform="translate(299.89 200.8)" xlink:href="#image"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-10" x="339.89" y="108.8" width="35" height="35" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-9" x="339.89" y="108.8" width="35" height="35" maskUnits="userSpaceOnUse">
+      <g class="cls-9">
+        <use transform="translate(339.89 108.8)" xlink:href="#image-2"/>
+      </g>
+    </mask>
+    <filter id="luminosity-invert-11" x="299.89" y="109.8" width="35" height="35" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feColorMatrix result="cm" values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 0 0 0 1 0"/>
+    </filter>
+    <mask id="mask-10" x="299.89" y="109.8" width="35" height="35" maskUnits="userSpaceOnUse">
+      <g class="cls-8">
+        <use transform="translate(299.89 109.8)" xlink:href="#image-2"/>
+      </g>
+    </mask>
+    <image id="image" width="35" height="34" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAiCAYAAADVhWD8AAAACXBIWXMAAAsSAAALEgHS3X78AAAAPklEQVRYhe3OMQEAIAzAsIJ/z2CAcu9oFGQBhyH2lAhlPsqYMqaMKWPKmDKmjCljypgypowpY8qYMqbME3ABM/MBQ4K1YbEAAAAASUVORK5CYII="/>
+    <image id="image-2" width="35" height="35" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAACXBIWXMAAAsSAAALEgHS3X78AAAAP0lEQVRYhe3OMQEAIAzAsIJ/z0NBuXc0CnKAYYm7JUKZjzKmjCljypgypowpY8qYMqaMKWPKmDKmjClj9mSAB+b0AUWIWgU9AAAAAElFTkSuQmCC"/>
+  </defs>
+  <g class="cls-11">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <rect class="cls-26" x=".25" y=".25" width="550" height="550" rx="75.62" ry="75.62"/>
+          <rect class="cls-5" x=".25" y=".25" width="550" height="550" rx="75.62" ry="75.62"/>
+        </g>
+        <g>
+          <g>
+            <rect class="cls-7" x="141.25" y="70.25" width="268" height="410"/>
+            <g class="cls-25">
+              <g class="cls-21">
+                <rect class="cls-7" x="141.25" y="70.25" width="268" height="410"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <rect class="cls-7" x="163.73" y="94.87" width="221.59" height="65.49"/>
+            <g class="cls-24">
+              <g class="cls-21">
+                <rect class="cls-7" x="163.73" y="94.87" width="221.59" height="65.49"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <rect class="cls-7" x="164.48" y="183.37" width="221.59" height="67.26"/>
+            <g class="cls-10">
+              <g class="cls-21">
+                <rect class="cls-7" x="164.48" y="183.37" width="221.59" height="67.26"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <rect class="cls-7" x="163.73" y="275.25" width="221.59" height="68.29"/>
+            <g class="cls-12">
+              <g class="cls-21">
+                <rect class="cls-7" x="163.73" y="275.25" width="221.59" height="68.29"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <path class="cls-7" d="m296.26,429.65l-.45.51c-10.17,11.47-27.73,12.52-39.21,2.36h0c-11.48-10.16-12.54-27.7-2.36-39.17l.45-.51c10.17-11.47,27.73-12.52,39.21-2.36h0c11.48,10.16,12.54,27.7,2.36,39.17Z"/>
+            <g class="cls-20">
+              <g class="cls-21">
+                <path class="cls-7" d="m296.26,429.65l-.45.51c-10.17,11.47-27.73,12.52-39.21,2.36h0c-11.48-10.16-12.54-27.7-2.36-39.17l.45-.51c10.17-11.47,27.73-12.52,39.21-2.36h0c11.48,10.16,12.54,27.7,2.36,39.17Z"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <ellipse class="cls-7" cx="357.48" cy="307.72" rx="9.81" ry="10.23" transform="translate(-109.92 371.14) rotate(-48.45)"/>
+            <g class="cls-16">
+              <g class="cls-21">
+                <ellipse class="cls-7" cx="357.48" cy="307.72" rx="9.81" ry="10.23" transform="translate(-109.92 371.14) rotate(-48.45)"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <ellipse class="cls-7" cx="317.09" cy="307.72" rx="9.81" ry="10.23" transform="translate(-123.52 340.91) rotate(-48.45)"/>
+            <g class="cls-22">
+              <g class="cls-21">
+                <ellipse class="cls-7" cx="317.09" cy="307.72" rx="9.81" ry="10.23" transform="translate(-123.52 340.91) rotate(-48.45)"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <ellipse class="cls-7" cx="357.48" cy="217.8" rx="9.81" ry="10.23" transform="translate(-42.63 340.86) rotate(-48.45)"/>
+            <g class="cls-27">
+              <g class="cls-21">
+                <ellipse class="cls-7" cx="357.48" cy="217.8" rx="9.81" ry="10.23" transform="translate(-42.63 340.86) rotate(-48.45)"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <ellipse class="cls-7" cx="317.09" cy="217.8" rx="9.81" ry="10.23" transform="translate(-56.23 310.63) rotate(-48.45)"/>
+            <g class="cls-19">
+              <g class="cls-21">
+                <ellipse class="cls-7" cx="317.09" cy="217.8" rx="9.81" ry="10.23" transform="translate(-56.23 310.63) rotate(-48.45)"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <ellipse class="cls-7" cx="357.48" cy="126.28" rx="9.81" ry="10.23" transform="translate(25.87 310.04) rotate(-48.45)"/>
+            <g class="cls-13">
+              <g class="cls-21">
+                <ellipse class="cls-7" cx="357.48" cy="126.28" rx="9.81" ry="10.23" transform="translate(25.87 310.04) rotate(-48.45)"/>
+              </g>
+            </g>
+          </g>
+          <g>
+            <ellipse class="cls-7" cx="317.09" cy="127.62" rx="9.81" ry="10.23" transform="translate(11.26 280.27) rotate(-48.45)"/>
+            <g class="cls-2">
+              <g class="cls-21">
+                <ellipse class="cls-7" cx="317.09" cy="127.62" rx="9.81" ry="10.23" transform="translate(11.26 280.27) rotate(-48.45)"/>
+              </g>
+            </g>
+          </g>
+          <line class="cls-7" x1="235.12" y1="299.01" x2="251.94" y2="299.01"/>
+          <line class="cls-7" x1="235.47" y1="317.21" x2="252.28" y2="317.21"/>
+          <line class="cls-7" x1="212.35" y1="299.01" x2="229.17" y2="299.01"/>
+          <line class="cls-7" x1="212.41" y1="317.21" x2="229.22" y2="317.21"/>
+          <line class="cls-4" x1="190.1" y1="299.01" x2="206.91" y2="299.01"/>
+          <line class="cls-7" x1="190.1" y1="317.21" x2="206.91" y2="317.21"/>
+          <line class="cls-6" x1="235.58" y1="229.26" x2="252.39" y2="229.26"/>
+          <line class="cls-7" x1="234.9" y1="210" x2="251.71" y2="210"/>
+          <line class="cls-7" x1="212.3" y1="229.26" x2="229.11" y2="229.26"/>
+          <line class="cls-7" x1="212.68" y1="210" x2="229.5" y2="210"/>
+          <line class="cls-7" x1="190.1" y1="228.9" x2="206.91" y2="228.9"/>
+          <line class="cls-7" x1="190.1" y1="210" x2="206.91" y2="210"/>
+          <line class="cls-7" x1="190.25" y1="136.56" x2="207.06" y2="136.56"/>
+          <line class="cls-7" x1="190.1" y1="118.67" x2="206.91" y2="118.67"/>
+          <line class="cls-7" x1="212.23" y1="136.56" x2="229.04" y2="136.56"/>
+          <line class="cls-7" x1="212.22" y1="118.67" x2="229.04" y2="118.67"/>
+          <line class="cls-7" x1="234.5" y1="136.56" x2="251.31" y2="136.56"/>
+          <line class="cls-7" x1="234.5" y1="118.67" x2="251.31" y2="118.67"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
